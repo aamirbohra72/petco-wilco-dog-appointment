@@ -1,4 +1,5 @@
 <template>
+  <HeaderTop/>
   <div class="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
     <div class="max-w-3xl mx-auto bg-white rounded-lg shadow-md overflow-hidden">
       <!-- Progress Bar -->
@@ -396,10 +397,13 @@
       </div>
     </div>
   </div>
+  <FooterBottom/>
 </template>
 
 <script setup>
 import { ref, reactive } from 'vue';
+import HeaderTop from '../components/HeaderTop.vue';
+import FooterBottom from '@/components/FooterBottom.vue'; 
 
 // Form data
 const formData = reactive({
