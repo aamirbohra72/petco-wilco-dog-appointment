@@ -3,7 +3,7 @@ import { SfButton } from '@storefront-ui/vue';
 </script>
 
 <template>
-  <header class="header fixed top-0 w-full z-10">
+  <header class="header w-full z-10">
     <div class="container">
       <div class="header-content">
         <div class="search-bar">

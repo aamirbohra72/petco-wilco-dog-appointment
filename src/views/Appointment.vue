@@ -1,6 +1,6 @@
 <template>
   <HeaderTop />
-  <div class="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
+  <div class="my-10 bg-gray-50 px-4 sm:px-6 lg:px-8">
     <div
       class="max-w-3xl mx-auto bg-white rounded-lg shadow-md overflow-hidden"
     >
@@ -755,7 +755,6 @@ const submitForm = () => {
 }
 
 .card {
-  background-color: #f8fafc; /* subtle background */
   border: 1px solid rgba(0, 59, 92, 0.1);
   border-radius: 0.75rem;
   padding: 1rem;
