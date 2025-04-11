@@ -1,3 +1,6 @@
+<script>
+  import { SfButton } from '@storefront-ui/vue';
+</script>
 
 <template>
   <div class="wilco-grooming">
@@ -28,20 +31,28 @@
       </div>
     </header>  -->
     <HeaderTop />
-    
+
 
     <!-- Hero Section -->
-    <section class="hero">
-      <div class="hero-content">
-        <div class="hero-text">
-          <h1>WILCO GROOMING IS READY TO PAMPER YOUR PETS</h1>
-          <p>
+    <div class="relative">
+      <div class="md:flex md:flex-row-reverse md:justify-center max-w[1536px] mx-auto min-h-[576px]">
+        <div class="flex flex-col">
+          <img src="@/assets/Home_Pet_banner-removebg-preview.png" alt="Headphones" class="h-full w-full object-cover object-left" />
+        </div>
+        <div class="!p-4 md:p-10 md:max-w-[768px] md:flex md:flex-col md:justify-center md:items-start md:basis-2/4">
+          <p class="text-4xl !text-neutral-950 dark:text-neutral-50 !my-2 font-bold text-neutral-50 text-neutral-500 uppercase">
+            WILCO GROOMING IS READY TO PAMPER YOUR PETS
+          </p>
+          <p class="text-lg text-neutral-950 dark:text-neutral-50">
             CALL TO BOOK AN APPOINTMENT OR SCHEDULE ONLINE. CHOOSE A WILCO LOCATION NEAR YOU AND
             LINKED IT TO YOUR IN-STORE WILCO FAMILY REWARDS.
           </p>
+          <div class="flex flex-col md:flex-row gap-4 mt-6">
+            <SfButton size="lg" class="text-neutral-50 dark:text-neutral-50 !bg-[#003B5C] !p-4 !rounded-full text-lg !my-4">Book Now</SfButton>
+          </div>
         </div>
       </div>
-    </section>
+    </div>
 
     <!-- Booking CTA -->
     <section class="booking-cta">
@@ -59,7 +70,7 @@
     <!-- Services Section -->
     <section class="services">
       <div class="container">
-        <h2 class="section-title">OUR SERVICES</h2>
+        <p class="text-center text-2xl font-semibold !my-3 text-gray-700 dark:text-neutral-50">OUR SERVICES</p>
 
         <div class="services-grid">
           <!-- Service Card 1 -->
@@ -69,8 +80,8 @@
               <div class="placeholder-image"></div>
             </div>
             <div class="service-content">
-              <h3>Rabies Vaccination Required</h3>
-              <p>
+              <p class="!text-[#003B5C] font-semibold !text-lg">Rabies Vaccination Required</p>
+              <p class="!text-neutral-950 dark:!text-neutral-50">
                 For the safety of all of our furry guests and our groomers, proof of a current
                 rabies vaccination must be on file with us before your pet's grooming appointment
                 can be provided.
@@ -81,11 +92,12 @@
           <!-- Service Card 2 -->
           <div class="service-card">
             <div class="service-image">
+              <!-- Using div with background instead of img -->
               <div class="placeholder-image"></div>
             </div>
             <div class="service-content">
-              <h3>De-Shed</h3>
-              <p>
+              <p class="!text-[#003B5C] font-semibold !text-lg">De-Shed</p>
+              <p class="!text-neutral-950 dark:!text-neutral-50">
                 If your breed sheds and needs assistance with excess hair, we recommend a de-shed
                 service. Using a special line of products designed to release the undercoat, we can
                 significantly reduce your dog's shedding issues.
@@ -99,8 +111,8 @@
               <div class="placeholder-image"></div>
             </div>
             <div class="service-content">
-              <h3>Facial</h3>
-              <p>
+              <p class="!text-[#003B5C] !font-semibold !text-lg">Facial</p>
+              <p class="!text-neutral-950 dark:!text-neutral-50">
                 For pets experiencing tear stains or facial discoloration, a facial treatment can
                 help group and is soothing to your pet. This service is included with all dog
                 grooms.
@@ -114,7 +126,7 @@
               <div class="placeholder-image"></div>
             </div>
             <div class="service-content">
-              <h3>Shampoos & Conditioners</h3>
+              <p class="!text-[#003B5C] !font-semibold !text-lg">Shampoos & Conditioners</p>
               <p>
                 Based on the needs of your pet, several shampoo and conditioner options are
                 available. We have special medicated shampoos for skin problems to hypoallergenic
@@ -129,8 +141,8 @@
               <div class="placeholder-image"></div>
             </div>
             <div class="service-content">
-              <h3>Flea Treatment</h3>
-              <p>We can remove flea infestations with gentle yet effective ingredients.</p>
+              <p class="!text-[#003B5C] !font-semibold !text-lg">Flea Treatment</p>
+              <p class="!text-neutral-950 dark:!text-neutral-50">We can remove flea infestations with gentle yet effective ingredients.</p>
             </div>
           </div>
 
@@ -140,8 +152,8 @@
               <div class="placeholder-image"></div>
             </div>
             <div class="service-content">
-              <h3>De-Skunk</h3>
-              <p>
+              <p class="!text-[#003B5C] !font-semibold !text-lg">De-Skunk</p>
+              <p class="!text-neutral-950 dark:!text-neutral-50">
                 Did your dog have an encounter with a skunk? We have special products and procedures
                 to remove the odor and restore your pet to its fresh-smelling self.
               </p>
@@ -154,8 +166,8 @@
               <div class="placeholder-image"></div>
             </div>
             <div class="service-content">
-              <h3>Hand Scissoring</h3>
-              <p>
+              <p class="!text-[#003B5C] !font-semibold !text-lg">Hand Scissoring</p>
+              <p class="!text-neutral-950 dark:!text-neutral-50"> 
                 For breeds that require detailed hand scissoring or for owners who prefer the look
                 of hand scissoring, we can take your pet's coat to another level with hand
                 scissoring.
@@ -169,8 +181,8 @@
               <div class="placeholder-image"></div>
             </div>
             <div class="service-content">
-              <h3>Brush Out</h3>
-              <p>
+              <p class="!text-[#003B5C] !font-semibold !text-lg">Brush Out</p>
+              <p class="text-neutral-950 dark:!text-neutral-50">
                 A little help with brushing can go a long way for dogs with longer coats. We can
                 help your pet's coat stay in better shape in between grooms.
               </p>
@@ -183,53 +195,10 @@
               <div class="placeholder-image"></div>
             </div>
             <div class="service-content">
-              <h3>Nails</h3>
-              <p>
+              <p class="text-[#003B5C] !font-semibold !text-lg">Nails</p>
+              <p class="text-neutral-950 dark:!text-neutral-50">
                 We can help with your pet's nails, which can be uncomfortable or even painful if
                 they get too long. Included with all grooms.
-              </p>
-            </div>
-          </div>
-
-          <!-- Service Card 10 -->
-          <div class="service-card">
-            <div class="service-image">
-              <div class="placeholder-image"></div>
-            </div>
-            <div class="service-content">
-              <h3>Dremeling of Nails</h3>
-              <p>
-                This service provides a smooth finish to your dog's nails and will help minimize
-                scratching. Dremeling is included with all grooms, but can be added to nail trim for
-                an additional charge.
-              </p>
-            </div>
-          </div>
-
-          <!-- Service Card 11 -->
-          <div class="service-card">
-            <div class="service-image">
-              <div class="placeholder-image"></div>
-            </div>
-            <div class="service-content">
-              <h3>Teeth Brushing</h3>
-              <p>
-                Good oral health is essential for your pet too. Add on teeth brushing to any full
-                groom service.
-              </p>
-            </div>
-          </div>
-
-          <!-- Service Card 12 -->
-          <div class="service-card">
-            <div class="service-image">
-              <div class="placeholder-image"></div>
-            </div>
-            <div class="service-content">
-              <h3>Ears Cleaned / Plucked</h3>
-              <p>
-                Depending on your breed's needs, we can clean and pluck the excess hair from your
-                pet's ears to prevent infection.
               </p>
             </div>
           </div>
@@ -252,8 +221,8 @@
     </section>
 
     <!-- Footer -->
-     <FooterBottom/>
-   
+    <FooterBottom />
+
   </div>
 </template>
 

@@ -1,30 +1,63 @@
+<script setup>
+import { SfButton } from '@storefront-ui/vue';
+</script>
+
 <template>
-<header class="header">
+  <header class="header w-full z-10">
     <div class="container">
       <div class="header-content">
         <div class="search-bar">
-          <input type="text" placeholder="Search Your Items" />
+          <input class="font-semibold text-neutral-950 !dark:text-neutral-950" type="text" placeholder="Search Your Items" />
           <button class="search-button">
-            <i class="search-icon"></i>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="lucide lucide-search-icon lucide-search text-neutral-950">
+              <circle cx="11" cy="11" r="8" />
+              <path d="m21 21-4.3-4.3" />
+            </svg>
           </button>
         </div>
 
         <div class="logo">
-          <img src="@/assets/wilco.png" alt="Wilco Logo" class="logo-img w-32 h-auto" />
+          <a href='/'>
+            <img src="@/assets/wilco.png" alt="Wilco Logo" class="logo-img w-32 h-auto" />
+          </a>
         </div>
 
         <div class="nav-links">
-          <a href="#">LOGIN</a>
-          <span class="divider">/</span>
-          <a href="#">REGISTER</a>
-          <a href="#" class="cart-icon">
-            <span class="cart-count">0</span>
+          <div class="flex items-center gap-2">
+            <!-- Login Button -->
+            <SfButton size="lg" class="!p-2 bg-neutral-50 text-neutral-950 hover:text-neutral-50 hover:bg-neutral-950 font-semibold">
+              Login
+            </SfButton>
+
+            <!-- Register Link styled like button -->
+            <SfButton size="lg" class="!p-2 bg-neutral-50 text-neutral-950 hover:text-neutral-50 hover:bg-neutral-950 font-semibold">
+              Register
+            </SfButton>
+          </div>
+
+          <a href="#" class="relative inline-block">
+            <!-- Badge -->
+            <span
+              class="absolute -top-2 -right-2 bg-black text-white text-xs w-5 h-5 flex items-center justify-center rounded-full font-semibold z-10">
+              0
+            </span>
+
+            <!-- Cart Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="lucide lucide-shopping-cart-icon lucide-shopping-cart">
+              <circle cx="8" cy="21" r="1" />
+              <circle cx="19" cy="21" r="1" />
+              <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
+            </svg>
           </a>
         </div>
       </div>
     </div>
   </header>
-  </template>
+</template>
 
 <script>
 export default {

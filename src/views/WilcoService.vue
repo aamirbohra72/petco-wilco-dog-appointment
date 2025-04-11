@@ -17,14 +17,10 @@
         alt="Dog getting a bath" 
         class="hero-image"
       />
-      <div class="hero-overlay">
-        <h1 class="hero-title">BATH</h1>
-        <div class="hero-underline"></div>
-      </div>
     </div>
 
     <!-- Pricing Tiers -->
-    <div class="pricing-grid">
+    <div class="pricing-grid px-6 my-4">
       <!-- X-Small Dogs -->
       <div class="pricing-card">
         <div class="size-badge x-small">X-SMALL</div>
@@ -249,9 +245,7 @@ import FooterBottom from '@/components/FooterBottom.vue';
 }
 
 .pet-grooming-app {
-  max-width: 1200px;
   margin: 0 auto;
-  padding: 20px;
   color: #0a2540;
 }
 
@@ -266,7 +260,6 @@ import FooterBottom from '@/components/FooterBottom.vue';
 .underline {
   height: 4px;
   width: 200px;
-  background-color: #0a2540;
   margin-bottom: 20px;
 }
 
@@ -289,7 +282,6 @@ import FooterBottom from '@/components/FooterBottom.vue';
 /* Hero Image Styles */
 .hero-image-container {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  max-width: 1160px;
   width: 100vw;
   height: 70vh;
   overflow: hidden;
@@ -421,7 +413,6 @@ import FooterBottom from '@/components/FooterBottom.vue';
 
 /* Experience Section */
 .experience-section {
-  background-color: #f8fafc;
   padding: 30px;
   border-radius: 12px;
   margin-top: 40px;
