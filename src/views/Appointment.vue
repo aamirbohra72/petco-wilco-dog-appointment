@@ -308,83 +308,72 @@
         <div v-if="currentStep === 4">
           <h2 class="text-xl font-semibold mb-6">Appointment Review</h2>
 
-          <div class="bg-gray-50 p-4 rounded-lg mb-6">
-            <h3 class="font-medium text-lg mb-4">Summary</h3>
+          <div class="bg-white rounded-2xl shadow-md p-6 mb-8 border border-gray-200">
+  <h3 class="text-xl font-semibold text-[#003b5c] mb-6">Summary</h3>
 
-            <div class="space-y-4">
-              <div>
-                <h4 class="text-sm font-medium text-gray-500">
-                  Pet Information
-                </h4>
-                <p class="mt-1">
-                  <span class="font-medium">Name:</span> {{ formData.petName }}
-                </p>
-                <p>
-                  <span class="font-medium">Breed:</span>
-                  {{ formData.petBreed }}
-                </p>
-                <p>
-                  <span class="font-medium">Species:</span>
-                  {{ formData.petSpecies }}
-                </p>
-                <p>
-                  <span class="font-medium">Date of Birth:</span>
-                  {{ formData.dob }}
-                </p>
-                <p>
-                  <span class="font-medium">Weight:</span>
-                  {{ formData.petWeight }} kg
-                </p>
-              </div>
+  <div class="space-y-6 text-[15px]">
+    <!-- Pet Information -->
+    <div>
+      <h4 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-2">
+        Pet Information
+      </h4>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-gray-700">
+        <p><span class="font-medium">Name:</span> {{ formData.petName }}</p>
+        <p><span class="font-medium">Breed:</span> {{ formData.petBreed }}</p>
+        <p><span class="font-medium">Species:</span> {{ formData.petSpecies }}</p>
+        <p><span class="font-medium">Date of Birth:</span> {{ formData.dob }}</p>
+        <p><span class="font-medium">Weight:</span> {{ formData.petWeight }} kg</p>
+      </div>
+    </div>
 
-              <!-- <div>
-                <h4 class="text-sm font-medium text-gray-500">Owner Information</h4>
-                <p class="mt-1"><span class="font-medium">Name:</span> {{ formData.ownerName }}</p>
-                <p><span class="font-medium">Email:</span> {{ formData.ownerEmail }}</p>
-                <p><span class="font-medium">Phone:</span> {{ formData.ownerPhone }}</p>
-              </div> -->
+    <!-- Appointment Details -->
+    <div>
+      <h4 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-2">
+        Appointment Details
+      </h4>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-gray-700">
+        <p>
+          <span class="font-medium">Date:</span>
+          {{ formatDate(formData.appointmentDate) }}
+        </p>
+        <p>
+          <span class="font-medium">Time:</span>
+          {{
+            formData.selectedTimeSlot !== null
+              ? availableTimeSlots[formData.selectedTimeSlot]
+              : ""
+          }}
+        </p>
+        <p>
+          <span class="font-medium">Location:</span>
+          {{ availableLocations[formData.selectedLocation]?.name }}
+        </p>
+        <p>
+          <span class="font-medium">Address:</span>
+          {{ availableLocations[formData.selectedLocation]?.address }}
+        </p>
+        <p>
+          <span class="font-medium">Zipcode:</span>
+          {{ formData.zipcode }}
+        </p>
+      </div>
+    </div>
 
-              <div>
-                <h4 class="text-sm font-medium text-gray-500">
-                  Appointment Details
-                </h4>
-                <p class="mt-1">
-                  <span class="font-medium">Date:</span>
-                  {{ formatDate(formData.appointmentDate) }}
-                </p>
-                <p>
-                  <span class="font-medium">Time:</span>
-                  {{
-                    formData.selectedTimeSlot !== null
-                      ? availableTimeSlots[formData.selectedTimeSlot]
-                      : ""
-                  }}
-                </p>
-                <p>
-                  <span class="font-medium">Location:</span>
-                  {{ availableLocations[formData.selectedLocation]?.name }}
-                </p>
-                <p>
-                  <span class="font-medium">Address:</span>
-                  {{ availableLocations[formData.selectedLocation]?.address }}
-                </p>
-                <p>
-                  <span class="font-medium">Zipcode:</span>
-                  {{ formData.zipcode }}
-                </p>
-              </div>
+    <!-- Service Details -->
+    <div>
+      <h4 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-2">
+        Service Details
+      </h4>
+      <div class="text-gray-700">
+        <p>
+          <span class="font-medium">Service:</span> Standard Grooming
+        </p>
+        <!-- <p><span class="font-medium">Price:</span> $65.00</p> -->
+      </div>
+    </div>
+  </div>
+</div>
 
-              <div>
-                <h4 class="text-sm font-medium text-gray-500">
-                  Service Details
-                </h4>
-                <p class="mt-1">
-                  <span class="font-medium">Service:</span> Standard Grooming
-                </p>
-                <!-- <p><span class="font-medium">Price:</span> $65.00</p> -->
-              </div>
-            </div>
-          </div>
 
           <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6">
             <div class="flex">
