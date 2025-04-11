@@ -74,7 +74,8 @@
 
         <div class="services-grid">
           <!-- Service Card 1 -->
-          <div class="service-card">
+          <a href="/service"> 
+            <div class="service-card">
             <div class="service-image">
               <!-- Using div with background instead of img -->
               <div class="placeholder-image"></div>
@@ -87,9 +88,10 @@
                 can be provided.
               </p>
             </div>
-          </div>
+          </div></a>
 
           <!-- Service Card 2 -->
+          <a href="/service"> 
           <div class="service-card">
             <div class="service-image">
               <!-- Using div with background instead of img -->
@@ -103,9 +105,10 @@
                 significantly reduce your dog's shedding issues.
               </p>
             </div>
-          </div>
+          </div></a>
 
           <!-- Service Card 3 -->
+          <a href="/service"> 
           <div class="service-card">
             <div class="service-image">
               <div class="placeholder-image"></div>
@@ -118,9 +121,10 @@
                 grooms.
               </p>
             </div>
-          </div>
+          </div></a>
 
           <!-- Service Card 4 -->
+          <a href="/service"> 
           <div class="service-card">
             <div class="service-image">
               <div class="placeholder-image"></div>
@@ -133,9 +137,10 @@
                 options for sensitive puppies to flea dips.
               </p>
             </div>
-          </div>
+          </div></a>
 
           <!-- Service Card 5 -->
+          <a href="/service"> 
           <div class="service-card">
             <div class="service-image">
               <div class="placeholder-image"></div>
@@ -144,9 +149,11 @@
               <p class="!text-[#003B5C] !font-semibold !text-lg">Flea Treatment</p>
               <p class="!text-neutral-950 dark:!text-neutral-50">We can remove flea infestations with gentle yet effective ingredients.</p>
             </div>
-          </div>
+          </div></a>
+
 
           <!-- Service Card 6 -->
+          <a href="/service"> 
           <div class="service-card">
             <div class="service-image">
               <div class="placeholder-image"></div>
@@ -158,9 +165,10 @@
                 to remove the odor and restore your pet to its fresh-smelling self.
               </p>
             </div>
-          </div>
+          </div></a>
 
           <!-- Service Card 7 -->
+          <a href="/service"> 
           <div class="service-card">
             <div class="service-image">
               <div class="placeholder-image"></div>
@@ -173,9 +181,10 @@
                 scissoring.
               </p>
             </div>
-          </div>
+          </div></a>
 
           <!-- Service Card 8 -->
+          <a href="/service"> 
           <div class="service-card">
             <div class="service-image">
               <div class="placeholder-image"></div>
@@ -187,9 +196,10 @@
                 help your pet's coat stay in better shape in between grooms.
               </p>
             </div>
-          </div>
+          </div></a>
 
           <!-- Service Card 9 -->
+          <a href="/service"> 
           <div class="service-card">
             <div class="service-image">
               <div class="placeholder-image"></div>
@@ -201,7 +211,7 @@
                 they get too long. Included with all grooms.
               </p>
             </div>
-          </div>
+          </div></a>
         </div>
       </div>
     </section>
