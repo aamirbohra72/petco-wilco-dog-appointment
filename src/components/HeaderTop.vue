@@ -27,12 +27,12 @@ import { SfButton } from '@storefront-ui/vue';
         <div class="nav-links">
           <div class="flex items-center gap-2">
             <!-- Login Button -->
-            <SfButton size="lg" class="!p-2 !bg-neutral-50 text-neutral-950 hover:text-neutral-50 hover:!bg-neutral-950 font-semibold">
+            <SfButton size="lg" class="!p-2 !bg-neutral-950 text-neutral-50  font-semibold">
               Login
             </SfButton>
 
             <!-- Register Link styled like button -->
-            <SfButton size="lg" class="!p-2 !bg-neutral-50 text-neutral-950 hover:text-neutral-50 hover:!bg-neutral-950 font-semibold">
+            <SfButton size="lg" class="!p-2 !bg-neutral-950 text-neutral-50  font-semibold">
               Register
             </SfButton>
           </div>
