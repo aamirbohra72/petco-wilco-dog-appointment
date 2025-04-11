@@ -10,7 +10,7 @@
         </div>
 
         <div class="logo">
-          <img src="@/assets/wilco.png" alt="Wilco Logo" class="logo-img" />
+          <img src="@/assets/wilco.png" alt="Wilco Logo" class="logo-img w-32 h-auto" />
         </div>
 
         <div class="nav-links">

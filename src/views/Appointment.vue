@@ -4,7 +4,7 @@
     <div class="max-w-3xl mx-auto bg-white rounded-lg shadow-md overflow-hidden">
       <!-- Progress Bar -->
       <div class="px-4 py-5 sm:px-6 bg-primary text-white">
-        <h3 class="text-lg leading-6 font-medium">Book Your Dog's Appointment</h3>
+        <h3 class="text-lg leading-6 font-medium">Book Your Pet's Appointment</h3>
         <div class="mt-3 flex items-center">
           <div class="w-full bg-primary-foreground/30 rounded-full h-2.5">
             <div 
@@ -18,11 +18,11 @@
 
       <!-- Form Content -->
       <div class="p-6">
-        <!-- Step 1: Dog & Owner Information -->
-        <div v-if="currentStep === 1">
-  <h2 class="text-xl font-semibold mb-6">Dog & Owner Information</h2>
+      <!-- Step 1: Dog & Owner Information -->
+<div v-if="currentStep === 1">
+  <h2 class="text-xl font-semibold mb-6">Pet Information</h2>
 
-  <div class="space-y-4">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
     <!-- Pet Name -->
     <div>
       <label for="petName" class="block text-sm font-medium text-gray-700">
@@ -64,27 +64,12 @@
         class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
         :class="{ 'border-red-500': errors.petSpecies }"
       >
-        <option value="">Select species</option>
+        <option value="">Choose a Species</option>
         <option value="dog">Dog</option>
         <option value="cat">Cat</option>
         <option value="other">Other</option>
       </select>
       <p v-if="errors.petSpecies" class="mt-1 text-sm text-red-600">{{ errors.petSpecies }}</p>
-    </div>
-
-    <!-- Owner Name -->
-    <div>
-      <label for="ownerName" class="block text-sm font-medium text-gray-700">
-        Owner Name <span class="text-red-500">*</span>
-      </label>
-      <input
-        id="ownerName"
-        v-model="formData.ownerName"
-        type="text"
-        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
-        :class="{ 'border-red-500': errors.ownerName }"
-      />
-      <p v-if="errors.ownerName" class="mt-1 text-sm text-red-600">{{ errors.ownerName }}</p>
     </div>
 
     <!-- Date of Birth -->
@@ -118,81 +103,6 @@
       <p v-if="errors.petWeight" class="mt-1 text-sm text-red-600">{{ errors.petWeight }}</p>
     </div>
 
-    <!-- Email -->
-    <div>
-      <label for="ownerEmail" class="block text-sm font-medium text-gray-700">
-        Email <span class="text-red-500">*</span>
-      </label>
-      <input
-        id="ownerEmail"
-        v-model="formData.ownerEmail"
-        type="email"
-        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
-        :class="{ 'border-red-500': errors.ownerEmail }"
-      />
-      <p v-if="errors.ownerEmail" class="mt-1 text-sm text-red-600">{{ errors.ownerEmail }}</p>
-    </div>
-
-    <!-- Phone Number -->
-    <div>
-      <label for="ownerPhone" class="block text-sm font-medium text-gray-700">
-        Phone Number <span class="text-red-500">*</span>
-      </label>
-      <input
-        id="ownerPhone"
-        v-model="formData.ownerPhone"
-        type="tel"
-        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
-        :class="{ 'border-red-500': errors.ownerPhone }"
-      />
-      <p v-if="errors.ownerPhone" class="mt-1 text-sm text-red-600">{{ errors.ownerPhone }}</p>
-    </div>
-
-    <!-- Street Address -->
-    <div>
-      <label for="street" class="block text-sm font-medium text-gray-700">
-        Street Address <span class="text-red-500">*</span>
-      </label>
-      <input
-        id="street"
-        v-model="formData.street"
-        type="text"
-        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
-        :class="{ 'border-red-500': errors.street }"
-      />
-      <p v-if="errors.street" class="mt-1 text-sm text-red-600">{{ errors.street }}</p>
-    </div>
-
-    <!-- City -->
-    <div>
-      <label for="city" class="block text-sm font-medium text-gray-700">
-        City <span class="text-red-500">*</span>
-      </label>
-      <input
-        id="city"
-        v-model="formData.city"
-        type="text"
-        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
-        :class="{ 'border-red-500': errors.city }"
-      />
-      <p v-if="errors.city" class="mt-1 text-sm text-red-600">{{ errors.city }}</p>
-    </div>
-
-    <!-- State -->
-    <div>
-      <label for="state" class="block text-sm font-medium text-gray-700">
-        State <span class="text-red-500">*</span>
-      </label>
-      <input
-        id="state"
-        v-model="formData.state"
-        type="text"
-        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
-        :class="{ 'border-red-500': errors.state }"
-      />
-      <p v-if="errors.state" class="mt-1 text-sm text-red-600">{{ errors.state }}</p>
-    </div>
-
     <!-- Pet License ID -->
     <div>
       <label for="license" class="block text-sm font-medium text-gray-700">
@@ -206,23 +116,49 @@
       />
     </div>
   </div>
-
-  <!-- Save & Continue Button -->
-  <div class="mt-6">
-    <button
-      type="button"
-      @click="validateStepOne"
-      class="inline-flex items-center px-6 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-[#003B5C] hover:bg-[#002f4a] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#003B5C]"
-    >
-      Save & Continue
-    </button>
-  </div>
 </div>
 
 
         <!-- Step 2: Date & Location Selection -->
         <div v-if="currentStep === 2">
-          <h2 class="text-xl font-semibold mb-6">Date & Location Selection</h2>
+          <h2 class="text-xl font-semibold mb-6">Select Grooming location for {{ formData.petName }}</h2>
+          
+          <div class="space-y-6">
+            <div>
+              <h3 class="text-lg font-medium mb-3">Available Locations</h3>
+              <div class="space-y-3">
+                <div 
+                  v-for="(location, index) in availableLocations" 
+                  :key="index"
+                  class="border rounded-lg p-4 cursor-pointer"
+                  :class="{ 'border-primary bg-primary/5': formData.selectedLocation === index, 'border-gray-200 hover:border-gray-300': formData.selectedLocation !== index }"
+                  @click="formData.selectedLocation = index"
+                >
+                  <h4 class="font-medium">{{ location.name }}</h4>
+                  <p class="text-sm text-gray-600">{{ location.address }}</p>
+                  <p class="text-sm text-gray-600">{{ location.phone }}</p>
+                </div>
+              </div>
+              <p v-if="errors.selectedLocation" class="mt-1 text-sm text-red-600">{{ errors.selectedLocation }}</p>
+            </div>
+            <div>
+              <label for="zipcode" class="block text-sm font-medium text-gray-700">Zipcode <span class="text-red-500">*</span></label>
+              <input 
+                id="zipcode" 
+                v-model="formData.zipcode" 
+                type="text" 
+                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
+                :class="{ 'border-red-500': errors.zipcode }"
+                placeholder="Enter your zipcode"
+              >
+              <p v-if="errors.zipcode" class="mt-1 text-sm text-red-600">{{ errors.zipcode }}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3: Time Slot Selection -->
+        <div v-if="currentStep === 3">
+          <h2 class="text-xl font-semibold mb-6">Selecting time slot</h2>
           
           <div class="space-y-6">
             <div>
@@ -249,44 +185,6 @@
                 </div>
               </div>
               <p v-if="errors.appointmentDate" class="mt-1 text-sm text-red-600">{{ errors.appointmentDate }}</p>
-            </div>
-
-            <div>
-              <label for="zipcode" class="block text-sm font-medium text-gray-700">Zipcode <span class="text-red-500">*</span></label>
-              <input 
-                id="zipcode" 
-                v-model="formData.zipcode" 
-                type="text" 
-                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
-                :class="{ 'border-red-500': errors.zipcode }"
-                placeholder="Enter your zipcode"
-              >
-              <p v-if="errors.zipcode" class="mt-1 text-sm text-red-600">{{ errors.zipcode }}</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Step 3: Time Slot Selection -->
-        <div v-if="currentStep === 3">
-          <h2 class="text-xl font-semibold mb-6">Time Slot & Location Selection</h2>
-          
-          <div class="space-y-6">
-            <div>
-              <h3 class="text-lg font-medium mb-3">Available Locations</h3>
-              <div class="space-y-3">
-                <div 
-                  v-for="(location, index) in availableLocations" 
-                  :key="index"
-                  class="border rounded-lg p-4 cursor-pointer"
-                  :class="{ 'border-primary bg-primary/5': formData.selectedLocation === index, 'border-gray-200 hover:border-gray-300': formData.selectedLocation !== index }"
-                  @click="formData.selectedLocation = index"
-                >
-                  <h4 class="font-medium">{{ location.name }}</h4>
-                  <p class="text-sm text-gray-600">{{ location.address }}</p>
-                  <p class="text-sm text-gray-600">{{ location.phone }}</p>
-                </div>
-              </div>
-              <p v-if="errors.selectedLocation" class="mt-1 text-sm text-red-600">{{ errors.selectedLocation }}</p>
             </div>
 
             <div>
@@ -324,27 +222,30 @@
                 <p class="mt-1"><span class="font-medium">Name:</span> {{ formData.petName }}</p>
                 <p><span class="font-medium">Breed:</span> {{ formData.petBreed }}</p>
                 <p><span class="font-medium">Species:</span> {{ formData.petSpecies }}</p>
+                <p><span class="font-medium">Date of Birth:</span> {{ formData.dob }}</p>
+                <p><span class="font-medium">Weight:</span> {{ formData.petWeight }} kg</p>
               </div>
               
-              <div>
+              <!-- <div>
                 <h4 class="text-sm font-medium text-gray-500">Owner Information</h4>
                 <p class="mt-1"><span class="font-medium">Name:</span> {{ formData.ownerName }}</p>
                 <p><span class="font-medium">Email:</span> {{ formData.ownerEmail }}</p>
                 <p><span class="font-medium">Phone:</span> {{ formData.ownerPhone }}</p>
-              </div>
+              </div> -->
               
               <div>
                 <h4 class="text-sm font-medium text-gray-500">Appointment Details</h4>
                 <p class="mt-1"><span class="font-medium">Date:</span> {{ formatDate(formData.appointmentDate) }}</p>
-                <p><span class="font-medium">Time:</span> {{ availableTimeSlots[formData.selectedTimeSlot] }}</p>
+                <p><span class="font-medium">Time:</span> {{ formData.selectedTimeSlot !== null ? availableTimeSlots[formData.selectedTimeSlot] : '' }}</p>
                 <p><span class="font-medium">Location:</span> {{ availableLocations[formData.selectedLocation]?.name }}</p>
                 <p><span class="font-medium">Address:</span> {{ availableLocations[formData.selectedLocation]?.address }}</p>
+                <p><span class="font-medium">Zipcode:</span> {{ formData.zipcode }}</p>
               </div>
               
               <div>
                 <h4 class="text-sm font-medium text-gray-500">Service Details</h4>
                 <p class="mt-1"><span class="font-medium">Service:</span> Standard Grooming</p>
-                <p><span class="font-medium">Price:</span> $65.00</p>
+                <!-- <p><span class="font-medium">Price:</span> $65.00</p> -->
               </div>
             </div>
           </div>
@@ -377,22 +278,48 @@
           </button>
           <div v-else></div>
           
-          <button 
-            v-if="currentStep < 4" 
-            @click="nextStep" 
-            type="button" 
-            class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
-          >
-            {{ currentStep === 3 ? 'Review' : 'Continue' }}
-          </button>
-          <button 
-            v-else 
-            @click="submitForm" 
-            type="button" 
-            class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-[#003B5C] hover:bg-[#002f4a] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#003B5C]"
-          >
-            Confirm Appointment
-          </button>
+          <!-- Step-specific action buttons -->
+          <div>
+            <!-- Step 1: Add Pet button -->
+            <button 
+              v-if="currentStep === 1" 
+              @click="validateAndProceed"
+              type="button" 
+              class="inline-flex items-center px-6 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-[#003B5C] hover:bg-[#002f4a] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#003B5C]"
+            >
+              Add Pet
+            </button>
+            
+            <!-- Step 2: Select Time Slot button -->
+            <button 
+              v-else-if="currentStep === 2" 
+              @click="validateAndProceed"
+              type="button" 
+              class="inline-flex items-center px-6 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+            >
+              Select Time Slot
+            </button>
+            
+            <!-- Step 3: Appointment Review button -->
+            <button 
+              v-else-if="currentStep === 3" 
+              @click="validateAndProceed"
+              type="button" 
+              class="inline-flex items-center px-6 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+            >
+              Appointment Review
+            </button>
+            
+            <!-- Step 4: Confirm Appointment button -->
+            <button 
+              v-else 
+              @click="submitForm" 
+              type="button" 
+              class="inline-flex items-center px-6 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-[#003B5C] hover:bg-[#002f4a] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#003B5C]"
+            >
+              Confirm Appointment
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -407,21 +334,26 @@ import FooterBottom from '@/components/FooterBottom.vue';
 
 // Form data
 const formData = reactive({
-  // Step 1: Dog & Owner Information
+  // Step 1: Pet Information
   petName: '',
   petBreed: '',
-  petSpecies: 'dog',
-  ownerName: '',
-  ownerEmail: '',
-  ownerPhone: '',
+  petSpecies: '',
+  dob: '',
+  petWeight: '',
+  license: '',
   
-  // Step 2: Date & Location Selection
-  appointmentDate: '',
+  // Step 2: Location Selection
+  selectedLocation: 0,
   zipcode: '',
   
   // Step 3: Time Slot Selection
-  selectedLocation: 0,
+  appointmentDate: '',
   selectedTimeSlot: null,
+
+  // Owner Information (for review step)
+  ownerName: 'John Doe', // Placeholder for review
+  ownerEmail: 'john@example.com', // Placeholder for review
+  ownerPhone: '(555) 123-4567', // Placeholder for review
 });
 
 // Current step
@@ -430,23 +362,58 @@ const currentStep = ref(1);
 // Validation errors
 const errors = reactive({});
 
-// Mock data for available locations
+// Array of Wilco Farm Store locations with name, address, and phone number
 const availableLocations = [
   {
-    name: 'Pawsome Grooming - Downtown',
-    address: '123 Main St, Anytown, CA 90210',
-    phone: '(555) 123-4567',
+    name: 'Wilco Farm Store - Corvallis',
+    address: '1905 NE Four Acre Place, Corvallis, OR 97330',
+    phone: '(541) 753-4100',
   },
   {
-    name: 'Pawsome Grooming - Westside',
-    address: '456 Ocean Ave, Anytown, CA 90211',
-    phone: '(555) 987-6543',
+    name: 'Wilco Farm Store - Lake Oswego',
+    address: '17711 Jean Way, Lake Oswego, OR 97035',
+    phone: '(503) 343-6577',
   },
   {
-    name: 'Pawsome Grooming - Northside',
-    address: '789 Mountain Rd, Anytown, CA 90212',
-    phone: '(555) 456-7890',
+    name: 'Wilco Farm Store - Oregon City',
+    address: '19224 S Molalla Ave, Oregon City, OR 97045',
+    phone: '(503) 656-0616',
+  },
+  {
+    name: 'Wilco Farm Store - Salem',
+    address: '3285 Commercial St SE, Salem, OR 97302',
+    phone: '(503) 364-0840',
   }
+  // {
+  //   name: 'Wilco Farm Store - Eugene',
+  //   address: '4818 W 11th Ave, Eugene, OR 97402',
+  //   phone: '(541) 343-5007',
+  // },
+  // {
+  //   name: 'Wilco Farm Store - Stayton',
+  //   address: '1385 N 1st St, Stayton, OR 97383',
+  //   phone: '(503) 769-6301',
+  // },
+  // {
+  //   name: 'Wilco Farm Store - Silverton',
+  //   address: '734 McClaine St, Silverton, OR 97381',
+  //   phone: '(503) 873-8318',
+  // },
+  // {
+  //   name: 'Wilco Farm Store - Canby',
+  //   address: '197 S Hazel Dell Way, Canby, OR 97013',
+  //   phone: '(503) 266-2213',
+  // },
+  // {
+  //   name: 'Wilco Farm Store - Newberg',
+  //   address: '2300 E Hancock St, Newberg, OR 97132',
+  //   phone: '(503) 537-2659',
+  // },
+  // {
+  //   name: 'Wilco Farm Store - Cornelius',
+  //   address: '664 W Baseline St, Cornelius, OR 97113',
+  //   phone: '(503) 992-1346',
+  // }
 ];
 
 // Mock data for available time slots
@@ -476,89 +443,108 @@ const selectDate = (day) => {
   errors.appointmentDate = '';
 };
 
-// Validate current step
-const validateStep = () => {
+// Validate step 1 (Pet Information)
+const validateStep1 = () => {
+  // Clear previous errors
   errors.petName = '';
   errors.petBreed = '';
-  errors.ownerName = '';
-  errors.ownerEmail = '';
-  errors.ownerPhone = '';
-  errors.appointmentDate = '';
-  errors.zipcode = '';
-  errors.selectedLocation = '';
-  errors.selectedTimeSlot = '';
+  errors.petSpecies = '';
+  errors.dob = '';
+  errors.petWeight = '';
   
   let isValid = true;
   
-  if (currentStep.value === 1) {
-    if (!formData.petName.trim()) {
-      errors.petName = 'Pet name is required';
-      isValid = false;
-    }
-    
-    if (!formData.petBreed.trim()) {
-      errors.petBreed = 'Pet breed is required';
-      isValid = false;
-    }
-    
-    if (!formData.ownerName.trim()) {
-      errors.ownerName = 'Owner name is required';
-      isValid = false;
-    }
-    
-    if (!formData.ownerEmail.trim()) {
-      errors.ownerEmail = 'Email is required';
-      isValid = false;
-    } else if (!/^\S+@\S+\.\S+$/.test(formData.ownerEmail)) {
-      errors.ownerEmail = 'Please enter a valid email address';
-      isValid = false;
-    }
-    
-    if (!formData.ownerPhone.trim()) {
-      errors.ownerPhone = 'Phone number is required';
-      isValid = false;
-    }
+  if (!formData.petName.trim()) {
+    errors.petName = 'Pet name is required';
+    isValid = false;
   }
   
-  else if (currentStep.value === 2) {
-    if (!formData.appointmentDate) {
-      errors.appointmentDate = 'Please select an appointment date';
-      isValid = false;
-    }
-    
-    if (!formData.zipcode.trim()) {
-      errors.zipcode = 'Zipcode is required';
-      isValid = false;
-    } else if (!/^\d{5}(-\d{4})?$/.test(formData.zipcode)) {
-      errors.zipcode = 'Please enter a valid zipcode';
-      isValid = false;
-    }
+  if (!formData.petBreed.trim()) {
+    errors.petBreed = 'Pet breed is required';
+    isValid = false;
   }
   
-  else if (currentStep.value === 3) {
-    if (formData.selectedLocation === null) {
-      errors.selectedLocation = 'Please select a location';
-      isValid = false;
-    }
-    
-    if (formData.selectedTimeSlot === null) {
-      errors.selectedTimeSlot = 'Please select a time slot';
-      isValid = false;
-    }
+  if (!formData.petSpecies) {
+    errors.petSpecies = 'Pet species is required';
+    isValid = false;
+  }
+  
+  if (!formData.dob) {
+    errors.dob = 'Date of birth is required';
+    isValid = false;
+  }
+  
+  if (!formData.petWeight) {
+    errors.petWeight = 'Pet weight is required';
+    isValid = false;
   }
   
   return isValid;
 };
 
-// Navigation methods
-const nextStep = () => {
-  if (validateStep()) {
+// Validate step 2 (Location Selection)
+const validateStep2 = () => {
+  // Clear previous errors
+  errors.selectedLocation = '';
+  errors.zipcode = '';
+  
+  let isValid = true;
+  
+  // Location is pre-selected, so we only need to validate zipcode
+  if (!formData.zipcode.trim()) {
+    errors.zipcode = 'Zipcode is required';
+    isValid = false;
+  } else if (!/^\d{5}(-\d{4})?$/.test(formData.zipcode)) {
+    errors.zipcode = 'Please enter a valid zipcode';
+    isValid = false;
+  }
+  
+  return isValid;
+};
+
+// Validate step 3 (Time Slot Selection)
+const validateStep3 = () => {
+  // Clear previous errors
+  errors.appointmentDate = '';
+  errors.selectedTimeSlot = '';
+  
+  let isValid = true;
+  
+  if (!formData.appointmentDate) {
+    errors.appointmentDate = 'Please select an appointment date';
+    isValid = false;
+  }
+  
+  if (formData.selectedTimeSlot === null) {
+    errors.selectedTimeSlot = 'Please select a time slot';
+    isValid = false;
+  }
+  
+  return isValid;
+};
+
+// Validate current step and proceed to next step if valid
+const validateAndProceed = () => {
+  let isValid = false;
+  
+  if (currentStep.value === 1) {
+    isValid = validateStep1();
+  } else if (currentStep.value === 2) {
+    isValid = validateStep2();
+  } else if (currentStep.value === 3) {
+    isValid = validateStep3();
+  }
+  
+  if (isValid) {
     currentStep.value++;
   }
 };
 
+// Go back to previous step
 const prevStep = () => {
-  currentStep.value--;
+  if (currentStep.value > 1) {
+    currentStep.value--;
+  }
 };
 
 // Submit form
@@ -633,44 +619,3 @@ const submitForm = () => {
   box-shadow: 0 2px 8px rgba(0, 59, 92, 0.05);
 }
 </style>
-
-
-<!-- <style>
-/* Add any custom styles here */
-:root {
-  --color-primary: #10b981; /* Emerald-500 */
-  --color-primary-foreground: #ffffff;
-}
-
-.bg-primary {
-  background-color: var(--color-primary);
-}
-
-.bg-primary\/5 {
-  background-color: rgba(16, 185, 129, 0.05);
-}
-
-.bg-primary\/90 {
-  background-color: rgba(16, 185, 129, 0.9);
-}
-
-.text-primary {
-  color: var(--color-primary);
-}
-
-.border-primary {
-  border-color: var(--color-primary);
-}
-
-.focus\:border-primary:focus {
-  border-color: var(--color-primary);
-}
-
-.focus\:ring-primary:focus {
-  --tw-ring-color: var(--color-primary);
-}
-
-.hover\:bg-primary\/90:hover {
-  background-color: rgba(16, 185, 129, 0.9);
-}
-</style> -->
