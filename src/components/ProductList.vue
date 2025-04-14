@@ -6,29 +6,26 @@
         <li v-for="product in products" :key="product.id">{{ product.title }}</li>
       </ul>
     </div>
-  </template>
+</template>
   
-  <script>
+<script>
   import { ref, onMounted } from "vue";
   import medusa from "@/lib/medusa";
   
   export default {
     setup() {
-      const products = ref([]);
+      const product_data = ref([]);
   
       onMounted(async () => {
         try {
-          const res = await medusa.products.list();
-          products.value = res.products;
+          const res = medusa.products.list().then(({ products, limit, offset, count }) => {
+          })
+          product_data.value = res.products;
         } catch (error) {
           console.error("Error fetching products:", error);
         }
       });
-  
-      return {
-        products,
-      };
     },
   };
-  </script>
+</script>
   
