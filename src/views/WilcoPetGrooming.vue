@@ -1,5 +1,6 @@
 <script>
   import { SfButton } from '@storefront-ui/vue';
+import ProductList from '@/components/ProductList.vue';
 </script>
 
 <template>
@@ -31,6 +32,7 @@
       </div>
     </header>  -->
     <HeaderTop />
+    <ProductList/>
 
 
     <!-- Hero Section -->
@@ -241,6 +243,7 @@
 // Later we can add data and methods for dynamic functionality
 import HeaderTop from '@/components/HeaderTop.vue';
 import FooterBottom from '@/components/FooterBottom.vue';
+import ProductList from '@/components/ProductList.vue';
 
 </script>
 
