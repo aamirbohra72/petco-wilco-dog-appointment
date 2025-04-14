@@ -199,7 +199,7 @@
                 </p>
               </div>
 
-              <div class="space-y-3">
+              <div class="space-y-3 grid grid-cols-2 gap-4">
                 <div
                   v-for="(location, index) in availableLocations"
                   :key="index"
@@ -447,6 +447,7 @@
             </button>
 
             <!-- Step 4: Confirm Appointment button -->
+          
             <button
               v-else
               @click="submitForm"
@@ -689,12 +690,23 @@ const prevStep = () => {
 };
 
 // Submit form
-const submitForm = () => {
-  alert(
-    "Appointment booked successfully! In a real application, this would submit to an API."
-  );
-  // Here you would typically make an API call to save the appointment
-};
+// const submitForm = () => {
+//   // alert(
+//   //   "Appointment booked successfully! In a real application, this would submit to an API."
+//   // );
+//   this.$router.push('/confirm');
+//   // Here you would typically make an API call to save the appointment
+// };
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+function submitForm() {
+  // Your form submission logic here
+  // After successful submission:
+  router.push('/confirm')
+}
+
 </script>
 
 <style>

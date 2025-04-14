@@ -3,12 +3,14 @@ import Home from './views/Home.vue';
 import WilcoPetGrooming from './views/WilcoPetGrooming.vue';
 import WilcoService from './views/WilcoService.vue';
 import Appointment from './views/Appointment.vue';
+import Confirm from './views/Confirm.vue';
 
 const routes = [
   { path: '/home', component: Home },
   { path: '/', component: WilcoPetGrooming },
   { path: '/service', component: WilcoService },
   { path: '/appointment', component: Appointment },
+  { path: '/confirm', component: Confirm}
 ];
 
 const router = createRouter({

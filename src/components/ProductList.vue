@@ -1,7 +1,7 @@
 <template>
     <div>
-        <h1>hello world</h1>
-      <h2>Products</h2>
+        <!-- <h1>hello world</h1>
+      <h2>Products</h2> -->
       <ul>
         <li v-for="product in products" :key="product.id">{{ product.title }}</li>
       </ul>
@@ -19,6 +19,7 @@
       onMounted(async () => {
         try {
           const res = await medusa.products.list();
+          console.log("Response:", res);
           products.value = res.products;
         } catch (error) {
           console.error("Error fetching products:", error);

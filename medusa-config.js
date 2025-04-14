@@ -1,7 +1,8 @@
+// medusa-config.js
 module.exports = {
-    projectConfig: {
-      // ...
-      cors: "http://localhost:3000", // Replace with your frontend URL
-    },
-  };
-  
+  projectConfig: {
+    // ... other configurations
+    store_cors: "http://localhost:3000",
+    admin_cors: "http://localhost:7001", // Adjust if using the admin dashboard
+  },
+};
