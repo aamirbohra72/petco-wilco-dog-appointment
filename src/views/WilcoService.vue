@@ -102,7 +102,7 @@ function handleOnChange(event: Event) {
 </script>
 
 <template>
-  <div class="grid grid-cols-2 gap-4">
+  <div class="grid px-8 grid-cols-2 gap-4">
     <div class="col-span-1">
       <div class="relative flex w-full max-h-[600px] aspect-[3/4]">
         <SfScrollable

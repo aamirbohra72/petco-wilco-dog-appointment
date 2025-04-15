@@ -4,8 +4,8 @@
   <!-- Appointment Form Card -->
 
   <div
-    class="bg-gray-50 px-4 sm:px-6 lg:px-8 min-h-screen bg-cover bg-center bg-no-repeat p-6"
-    style="background-image: url('src/assets/paw-bg.png')"
+    class="bg-gray-50 bg-cover bg-center"
+    style="background-image: url('src/assets/paw-bg.jpg')"
   >
     <!-- <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 via-purple-100 to-pink-200 p-4"> -->
 

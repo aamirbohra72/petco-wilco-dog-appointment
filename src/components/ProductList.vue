@@ -1,31 +1,43 @@
 <template>
-    <div>
-        <!-- <h1>hello world</h1>
-      <h2>Products</h2> -->
-      <ul>
-        <li v-for="product in products" :key="product.id">{{ product.title }}</li>
-      </ul>
+    <div class="flex !px-8 !my-4 flex-wrap gap-4 lg:gap-6 lg:flex-nowrap">
+      <div
+        v-for="({ title, description, thumbnail }, index) in product_data"
+        :key="`${title}-${index}`"
+        class="flex cursor-pointer flex-col min-w-[325px] max-w-[375px] lg:w-[496px] relative border border-neutral-200 rounded-md hover:shadow-xl"
+      >
+        <img :src="thumbnail" :alt="title" class="object-cover h-auto rounded-t-md aspect-video" />
+        <div class="flex flex-col items-start p-4 grow">
+          <p class="font-extrabold text-lg typography-text-base text-[#003B5C]">{{ title }}</p>
+          <p class="mt-1 mb-4 font-normal typography-text-sm text-geay-700 dark:text-neutral-50 line-clamp-3">{{ description }}</p>
+          <SfButton size="sm" variant="tertiary" class="relative mt-auto">{{ button }}</SfButton>
+        </div>
+      </div>
     </div>
 </template>
   
 <script>
   import { ref, onMounted } from "vue";
   import medusa from "@/lib/medusa";
-  
+
   export default {
     setup() {
       const product_data = ref([]);
-  
+
       onMounted(async () => {
         try {
-          const res = medusa.products.list().then(({ products, limit, offset, count }) => {
-          })
-          product_data.value = res.products;
+          const { products } = await medusa.products.list({
+            type_id: ["pt-uttr667ddwawdw"],
+          });
+          console.log("Filtered products: ", products);
+          product_data.value = products;
         } catch (error) {
           console.error("Error fetching products:", error);
         }
       });
+
+      return {
+        product_data,
+      };
     },
   };
 </script>
-  
