@@ -45,7 +45,6 @@ onMounted(async () => {
         </div>
       </div>
     </header>  -->
-    <HeaderTop />
 
     <!-- Hero Section -->
     <div class="bg-white dark:bg-gray-900 !my-2">
@@ -260,10 +259,6 @@ onMounted(async () => {
         </p>
       </div>
     </section>
-
-    <!-- Footer -->
-    <FooterBottom />
-
   </div>
 </template>
 

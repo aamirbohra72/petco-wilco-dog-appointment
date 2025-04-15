@@ -1,628 +1,252 @@
-<template>
-  <div class="pet-grooming-app">
-    <!-- Header Section -->
-     
+<script lang="ts" setup>
+import { ref } from 'vue';
+import {
+  SfScrollable,
+  SfButton,
+  SfIconChevronLeft,
+  SfIconChevronRight,
+  type SfScrollableOnDragEndData,
+  SfCounter,
+  SfLink,
+  SfRating,
+  useId,
+} from '@storefront-ui/vue';
+import { unrefElement, useIntersectionObserver } from '@vueuse/core';
+import { watch, type ComponentPublicInstance } from 'vue';
+import { clamp } from '@storefront-ui/shared';
+import { useCounter } from '@vueuse/core';
 
-     <HeaderTop/>
+import image1 from '@/assets/Deshade-1.jpg';
+import image2 from '@/assets/Deshade-2.webp';
+import image3 from '@/assets/Deshade-3.jpg';
 
-    <!-- <header class="header">
-      <h1 class="service-title">BATH</h1>
-      <div class="underline"></div>
-    </header> -->
+const images = [
+  { imageSrc: image1, imageThumbSrc: image1, alt: 'Image 1' },
+  { imageSrc: image2, imageThumbSrc: image2, alt: 'Image 2' },
+  { imageSrc: image3, imageThumbSrc: image3, alt: 'Image 3' },
+];
 
-    <!-- Main Image -->
-    <div class="hero-image-container">
-      <img 
-        src="https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?q=80&w=1600&auto=format&fit=crop" 
-        alt="Dog getting a bath" 
-        class="hero-image"
-      />
-    </div>
+const thumbsRef = ref<HTMLElement>();
+const firstThumbRef = ref<HTMLButtonElement>();
+const lastThumbRef = ref<HTMLButtonElement>();
+const firstThumbVisible = ref(false);
+const lastThumbVisible = ref(false);
+const activeIndex = ref(0);
 
-    <!-- Pricing Tiers -->
-    <div class="pricing-grid px-6 my-4">
-      <!-- X-Small Dogs -->
-      <div class="pricing-card">
-        <div class="size-badge x-small">X-SMALL</div>
-        <div class="dog-info">
-          <img src="https://images.unsplash.com/photo-1583512603806-077998240c7a?q=80&w=200" alt="X-Small dog" class="dog-image" />
-          <h3 class="weight-range">1 - 10 lbs.</h3>
-        </div>
-        <div class="pricing-options">
-          <div class="price-row">
-            <span class="service-type">BATH ONLY</span>
-            <span class="price">starts at $24</span>
-          </div>
-          <div class="price-row">
-            <span class="service-type">BATH + CUT</span>
-            <span class="price">starts at $46</span>
-          </div>
-        </div>
-      </div>
+watch(
+  thumbsRef,
+  (thumbsRef) => {
+    if (thumbsRef) {
+      useIntersectionObserver(
+        firstThumbRef,
+        ([{ isIntersecting }]) => {
+          firstThumbVisible.value = isIntersecting;
+        },
+        {
+          root: unrefElement(thumbsRef),
+          rootMargin: '0px',
+          threshold: 1,
+        },
+      );
+    }
+  },
+  { immediate: true },
+);
 
-      <!-- Small Dogs -->
-      <div class="pricing-card">
-        <div class="size-badge small">SMALL</div>
-        <div class="dog-info">
-          <img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?q=80&w=200" alt="Small dog" class="dog-image" />
-          <h3 class="weight-range">11 - 25 lbs.</h3>
-        </div>
-        <div class="pricing-options">
-          <div class="price-row">
-            <span class="service-type">BATH ONLY</span>
-            <span class="price">starts at $28</span>
-          </div>
-          <div class="price-row">
-            <span class="service-type">BATH + CUT</span>
-            <span class="price">starts at $50</span>
-          </div>
-        </div>
-      </div>
+watch(
+  thumbsRef,
+  (thumbsRef) => {
+    if (thumbsRef) {
+      useIntersectionObserver(
+        lastThumbRef,
+        ([{ isIntersecting }]) => {
+          lastThumbVisible.value = isIntersecting;
+        },
+        {
+          root: unrefElement(thumbsRef),
+          rootMargin: '0px',
+          threshold: 1,
+        },
+      );
+    }
+  },
+  { immediate: true },
+);
 
-      <!-- Medium Dogs -->
-      <div class="pricing-card">
-        <div class="size-badge medium">MEDIUM</div>
-        <div class="dog-info">
-          <img src="https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?q=80&w=200" alt="Medium dog" class="dog-image" />
-          <h3 class="weight-range">26 - 50 lbs.</h3>
-        </div>
-        <div class="pricing-options">
-          <div class="price-row">
-            <span class="service-type">BATH ONLY</span>
-            <span class="price">starts at $32</span>
-          </div>
-          <div class="price-row">
-            <span class="service-type">BATH + CUT</span>
-            <span class="price">starts at $57</span>
-          </div>
-        </div>
-      </div>
+const onDragged = (event: SfScrollableOnDragEndData) => {
+  if (event.swipeRight && activeIndex.value > 0) {
+    activeIndex.value -= 1;
+  } else if (event.swipeLeft && activeIndex.value < images.length - 1) {
+    activeIndex.value += 1;
+  }
+};
 
-      <!-- Large Dogs -->
-      <div class="pricing-card">
-        <div class="size-badge large">LARGE</div>
-        <div class="dog-info">
-          <img src="https://images.unsplash.com/photo-1477884213360-7e9d7dcc1e48?q=80&w=200" alt="Large dog" class="dog-image" />
-          <h3 class="weight-range">51 - 80 lbs.</h3>
-        </div>
-        <div class="pricing-options">
-          <div class="price-row">
-            <span class="service-type">BATH ONLY</span>
-            <span class="price">starts at $39</span>
-          </div>
-          <div class="price-row">
-            <span class="service-type">BATH + CUT</span>
-            <span class="price">starts at $68</span>
-          </div>
-        </div>
-      </div>
-    </div>
+const assignRef = (el: Element | ComponentPublicInstance | null, index: number) => {
+  if (!el) return;
+  if (index === images.length - 1) {
+    lastThumbRef.value = el as HTMLButtonElement;
+  } else if (index === 0) {
+    firstThumbRef.value = el as HTMLButtonElement;
+  }
+};
 
-    <!-- Experience Section -->
-    <section class="experience-section">
-      <h2 class="experience-title">TAIL-WAGGING GROOMING EXPERIENCE</h2>
-      <p class="experience-subtitle">From start to finish, we make your pet's health and wellbeing our top priority.</p>
-
-      <div class="services-container">
-        <!-- Services List -->
-        <div class="services-list">
-          <div class="service-category">
-            <div class="service-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bath"><path d="M9 6 6.5 3.5a1.5 1.5 0 0 0-1-.5C4.683 3 4 3.683 4 4.5V17a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"/><line x1="10" x2="8" y1="5" y2="7"/><line x1="2" x2="22" y1="12" y2="12"/><line x1="7" x2="7" y1="19" y2="21"/><line x1="17" x2="17" y1="19" y2="21"/></svg>
-            </div>
-            <h3>Bath</h3>
-          </div>
-
-          <ul class="service-items">
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="check-icon"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              Deep-cleansing shampoo
-            </li>
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="check-icon"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              Blow-dry
-            </li>
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="check-icon"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              Nail trim
-            </li>
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="check-icon"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              Gland expression
-            </li>
-          </ul>
-
-          <ul class="service-items">
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="check-icon"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              Ear cleaning
-            </li>
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="check-icon"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              15-min brushout
-            </li>
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="check-icon"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              Scented spritz
-            </li>
-          </ul>
-           <a href="/appointment" >
-          <button class="book-button">BOOK APPOINTMENT</button></a>
-          <p class="pricing-note">Pricing varies by store/location and breed type.</p>
-        </div>
-
-        <!-- Process Steps -->
-        <div class="process-steps">
-          <div class="step">
-            <div class="step-number">1.</div>
-            <div class="step-content">
-              <h4>Check-In & Pre-Bath Assessment</h4>
-              <span class="time">(~10 min)</span>
-            </div>
-          </div>
-
-          <div class="step">
-            <div class="step-number">2.</div>
-            <div class="step-content">
-              <h4>Brushing Before Bath</h4>
-              <span class="time">(~30 min)</span>
-            </div>
-          </div>
-
-          <div class="step">
-            <div class="step-number">3.</div>
-            <div class="step-content">
-              <h4>Rinse & Wet Down</h4>
-              <span class="time">(~45 min)</span>
-            </div>
-          </div>
-
-          <div class="step">
-            <div class="step-number">4.</div>
-            <div class="step-content">
-              <h4>Shampoo</h4>
-              <span class="time">(~45 min)</span>
-            </div>
-          </div>
-
-          <div class="step">
-            <div class="step-number">5.</div>
-            <div class="step-content">
-              <h4>Report card</h4>
-              <span class="time">(~10 min)</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Care Check Info -->
-       <!-- <div class="care-check">
-          <div class="care-check-content">
-            <img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?q=80&w=300" alt="Dog being checked" class="care-check-image" />
-            <div class="care-check-text">
-              <h4>Your service starts with our 7-Point Pet Care Check,*</h4>
-              <p>a quick screening to make sure nothing looks or feels abnormal on your pet.</p>
-              <p class="disclaimer">*The 7-Point Pet Care Check is not a substitute for regular examinations and care from a licensed veterinarian. If we find any concerns, we will refer you to your veterinarian.</p>
-            </div>
-          </div>
-          <button class="book-button">BOOK APPOINTMENT</button>
-        </div> -->
-
-      </div>
-    </section>
-    <FooterBottom/>
-  </div>
-</template>
-
-
-
-<script setup>
-import HeaderTop from '@/components/HeaderTop.vue';
-import FooterBottom from '@/components/FooterBottom.vue';
-
-// export default {
-//   name: 'PetGroomingService',
-//   data() {
-//     return {
-//       // Data can be added here if needed for dynamic content
-//     }
-//   },
-//   methods: {
-//     // Methods can be added here for interactivity
-//   }
-// }
+const inputId = useId();
+const min = ref(1);
+const max = ref(999);
+const { count, inc, dec, set } = useCounter(1, { min: min.value, max: max.value });
+function handleOnChange(event: Event) {
+  const currentValue = (event.target as HTMLInputElement)?.value;
+  const nextValue = parseFloat(currentValue);
+  set(clamp(nextValue, min.value, max.value));
+}
 </script>
 
-<style>
+<template>
+  <div class="grid grid-cols-2 gap-4">
+    <div class="col-span-1">
+      <div class="relative flex w-full max-h-[600px] aspect-[3/4]">
+        <SfScrollable
+          ref="thumbsRef"
+          class="items-center w-full [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+          direction="vertical"
+          :active-index="activeIndex"
+          :previous-disabled="activeIndex === 0"
+          :next-disabled="activeIndex === images.length - 1"
+          buttons-placement="floating"
+        >
+          <template #previousButton="defaultProps">
+            <SfButton
+              v-if="!firstThumbVisible"
+              v-bind="defaultProps"
+              :disabled="activeIndex === 0"
+              class="absolute !rounded-full z-10 top-4 rotate-90 bg-white"
+              variant="secondary"
+              size="sm"
+              square
+            >
+              <SfIconChevronLeft size="sm" />
+            </SfButton>
+          </template>
+          <button
+            v-for="({ imageThumbSrc, alt }, index) in images"
+            :key="`${alt}-${index}-thumbnail`"
+            :ref="(el) => assignRef(el, index)"
+            type="button"
+            :aria-label="alt"
+            :aria-current="activeIndex === index"
+            :class="`md:w-[78px] md:h-auto relative shrink-0 pb-1 mx-4 -mb-2 border-b-4 snap-start cursor-pointer focus-visible:outline focus-visible:outline-offset transition-colors flex-grow md:flex-grow-0  ${
+              activeIndex === index ? 'border-primary-700' : 'border-transparent'
+            }`"
+            @mouseover="activeIndex = index"
+            @focus="activeIndex = index"
+          >
+            <img :alt="alt" class="border border-neutral-200" width="78" height="78" :src="imageThumbSrc" />
+          </button>
+          <template #nextButton="defaultProps">
+            <SfButton
+              v-if="!lastThumbVisible"
+              v-bind="defaultProps"
+              :disabled="activeIndex === images.length"
+              class="absolute !rounded-full z-10 bottom-4 rotate-90 bg-white"
+              variant="secondary"
+              size="sm"
+              square
+            >
+              <SfIconChevronRight size="sm" />
+            </SfButton>
+          </template>
+        </SfScrollable>
+        <SfScrollable
+          class="w-full h-full snap-y snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+          :active-index="activeIndex"
+          direction="vertical"
+          wrapper-class="h-full m-auto"
+          is-active-index-centered
+          buttons-placement="none"
+          :drag="{ containerWidth: true }"
+          @on-drag-end="onDragged"
+        >
+          <div
+            v-for="({ imageSrc, alt }, index) in images"
+            :key="`${alt}-${index}`"
+            class="flex justify-center h-full basis-full shrink-0 grow snap-center snap-always"
+          >
+            <img
+              :aria-label="alt"
+              :aria-hidden="activeIndex !== index"
+              class="object-cover w-auto h-full"
+              :alt="alt"
+              :src="imageSrc"
+            />
+          </div>
+        </SfScrollable>
+      </div>
+    </div>
+    <div class="col-span-1">
+      <section class="md:max-w-[640px]">
+    <h1 class="mb-1 font-bold typography-headline-4 text-2xl">Deshedding Treatment</h1>
+    <strong class="block font-bold typography-headline-3">$ 50.99</strong>
+    <div class="inline-flex items-center mt-4 mb-2">
+      <SfRating size="xs" :value="3" :max="5" />
+      <SfCounter class="ml-1" size="xs">123</SfCounter>
+      <SfLink href="#" variant="secondary" class="ml-2 text-xs text-neutral-500"> 123 reviews </SfLink>
+    </div>
+    
+    <!-- Varient Selector -->
+    <div class="my-2">
+      <p class="text-sm font-semibold !my-2">Select the pet size according to weight</p>
+      <div class="flex gap-2">
+        <SfButton size="lg" class="!rounded-full !bg-[#003B5C]">XS</SfButton>
+        <SfButton size="lg" class="!rounded-full !bg-[#003B5C]">S</SfButton>
+        <SfButton size="lg" class="!rounded-full !bg-[#003B5C]">M</SfButton>
+        <SfButton size="lg" class="!rounded-full !bg-[#003B5C]">L</SfButton>
+        <SfButton size="lg" class="!rounded-full !bg-[#003B5C]">XL</SfButton>
+      </div>
+    </div>
 
-/* Base Styles */
+    <div class="!my-4 bg-white border border-gray-200 rounded-2xl shadow-sm p-6 space-y-5">
+      <!-- Title -->
+      <h2 class="text-2xl font-bold text-gray-900">What’s Included</h2>
 
-/* Global Styles */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+      <!-- Subtitle -->
+      <p class="text-gray-600 text-sm">
+        Our Deshedding Treatment includes a full grooming experience tailored for pets that shed heavily.
+      </p>
 
-.pet-grooming-app {
-  margin: 0 auto;
-  color: #0a2540;
-}
+      <!-- Package Features -->
+      <ul class="space-y-3">
+        <li class="flex items-start gap-3">
+          <span class="text-green-600">✔️</span>
+          <span class="text-gray-700">Gentle bath with deep cleansing deshedding shampoo</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="text-green-600">✔️</span>
+          <span class="text-gray-700">Blow dry and undercoat removal</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="text-green-600">✔️</span>
+          <span class="text-gray-700">Nail trimming and paw pad cleaning</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="text-green-600">✔️</span>
+          <span class="text-gray-700">Anal gland expression</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="text-green-600">✔️</span>
+          <span class="text-gray-700">Ear cleaning</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="text-green-600">✔️</span>
+          <span class="text-gray-700">Brush-out and finishing spray</span>
+        </li>
+      </ul>
 
-
-.service-title {
-  font-size: 28px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  margin-bottom: 10px;
-}
-
-.underline {
-  height: 4px;
-  width: 200px;
-  margin-bottom: 20px;
-}
-
-/* Main Image */
-/* .main-image-container {
-  margin-bottom: 30px;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  max-width: 400px;
-}
-
-.main-image {
-  width: 100%;
-  height: auto;
-  display: block;
-  object-fit: cover;
-} */
-
-/* Hero Image Styles */
-.hero-image-container {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  width: 100vw;
-  height: 70vh;
-  overflow: hidden;
-}
-
-.hero-image {
-  width: 100%;
-  height: auto;
-  display: block;
-  object-fit: cover;
-}
-
-.hero-overlay {
-  position: absolute;
-  bottom: 10%;
-  left: 10%;
-  z-index: 2;
-}
-
-.hero-title {
-  font-size: 4rem;
-  font-weight: 700;
-  letter-spacing: 2px;
-  color: white;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  margin-bottom: 20px;
-}
-
-.hero-underline {
-  height: 6px;
-  width: 150px;
-  background-color: white;
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-
-/* Pricing Grid */
-.pricing-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-  margin-bottom: 40px;
-}
-
-.pricing-card {
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  background-color: #fff;
-  transition: transform 0.3s ease;
-  position: relative;
-}
-
-.pricing-card:hover {
-  transform: translateY(-5px);
-}
-
-.size-badge {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  padding: 5px 12px;
-  border-radius: 20px;
-  color: white;
-  font-weight: 600;
-  font-size: 12px;
-  letter-spacing: 0.5px;
-}
-
-.x-small {
-  background-color: #0a2540;
-}
-
-.small {
-  background-color: #0a2540;
-}
-
-.medium {
-  background-color: #0a2540;
-}
-
-.large {
-  background-color: #0a2540;
-}
-
-.dog-info {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.dog-image {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 15px;
-  border: 3px solid #f0f4f8;
-}
-
-.weight-range {
-  font-size: 18px;
-  font-weight: 600;
-  color: #0a2540;
-}
-
-.pricing-options {
-  padding: 0 20px 20px;
-}
-
-.price-row {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px 0;
-  border-top: 1px solid #e6ecf1;
-}
-
-.service-type {
-  font-size: 14px;
-  font-weight: 600;
-  color: #0a2540;
-}
-
-.price {
-  font-size: 14px;
-  color: #0a2540;
-}
-
-/* Experience Section */
-.experience-section {
-  padding: 30px;
-  border-radius: 12px;
-  margin-top: 40px;
-}
-
-.experience-title {
-  font-size: 24px;
-  font-weight: 700;
-  color: #0a2540;
-  margin-bottom: 10px;
-}
-
-.experience-subtitle {
-  font-size: 16px;
-  color: #4a5568;
-  margin-bottom: 30px;
-}
-
-.services-container {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 30px;
-}
-
-@media (min-width: 768px) {
-  .services-container {
-    grid-template-columns: 1fr 1fr;
-  }
-  
-  .care-check {
-    grid-column: span 2;
-  }
-}
-
-/* Services List */
-.services-list {
-  background-color: #fff;
-  padding: 25px;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-}
-
-.service-category {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.service-icon {
-  background-color: #e6f7ff;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 15px;
-  color: #0a2540;
-}
-
-.service-items {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 15px;
-  list-style: none;
-  margin-bottom: 30px;
-}
-
-@media (max-width: 600px) {
-  .service-items {
-    grid-template-columns: 1fr;
-  }
-}
-
-.service-items li {
-  display: flex;
-  align-items: center;
-  font-size: 14px;
-}
-
-.check-icon {
-  color: #38b2ac;
-  margin-right: 10px;
-  flex-shrink: 0;
-}
-
-/* Process Steps */
-.process-steps {
-  background-color: #fff;
-  padding: 25px;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-}
-
-.step {
-  display: flex;
-  margin-bottom: 20px;
-  align-items: flex-start;
-}
-
-.step-number {
-  background-color: #bee3f8;
-  color: #0a2540;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 600;
-  margin-right: 15px;
-  flex-shrink: 0;
-}
-
-.step-content {
-  flex-grow: 1;
-}
-
-.step-content h4 {
-  font-size: 16px;
-  margin-bottom: 5px;
-}
-
-.time {
-  font-size: 14px;
-  color: #718096;
-}
-
-/* Care Check */
-.care-check {
-  background-color: #fff;
-  padding: 25px;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  margin-top: 20px;
-}
-
-.care-check-content {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 20px;
-}
-
-@media (min-width: 768px) {
-  .care-check-content {
-    flex-direction: row;
-  }
-}
-
-.care-check-image {
-  width: 100%;
-  max-width: 300px;
-  height: auto;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  object-fit: cover;
-}
-
-@media (min-width: 768px) {
-  .care-check-image {
-    margin-right: 20px;
-    margin-bottom: 0;
-  }
-}
-
-.care-check-text {
-  flex-grow: 1;
-}
-
-.care-check-text h4 {
-  font-size: 18px;
-  margin-bottom: 10px;
-  color: #0a2540;
-}
-
-.care-check-text p {
-  font-size: 14px;
-  line-height: 1.6;
-  color: #4a5568;
-  margin-bottom: 10px;
-}
-
-.disclaimer {
-  font-size: 12px;
-  color: #718096;
-  font-style: italic;
-}
-
-/* Button Styles */
-.book-button {
-  background-color: #0a2540;
-  color: white;
-  border: none;
-  padding: 12px 24px;
-  border-radius: 4px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  width: 100%;
-  margin-top: 10px;
-}
-
-.book-button:hover {
-  background-color: #1a365d;
-}
-
-.pricing-note {
-  font-size: 12px;
-  color: #718096;
-  text-align: center;
-  margin-top: 10px;
-}
-</style>
+      <!-- Book Appointment -->
+       <SfButton class="!bg-[#003B5C] !p-4">
+          <p class="font-semibold">Book Appointment</p>
+       </SfButton>
+    </div>
+    </section>
+    </div>
+  </div>
+</template>

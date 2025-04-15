@@ -1,5 +1,5 @@
 <template>
-  <HeaderTop />
+  <!-- <HeaderTop /> -->
   <!-- <div class="min-h-screen "> -->
   <!-- Appointment Form Card -->
 
@@ -502,13 +502,11 @@
     </div>
   </div>
   <!-- </div> -->
-  <FooterBottom />
+  <!-- <FooterBottom /> -->
 </template>
 
 <script setup>
 import { ref, reactive } from "vue";
-import HeaderTop from "../components/HeaderTop.vue";
-import FooterBottom from "@/components/FooterBottom.vue";
 
 // Form data
 const formData = reactive({

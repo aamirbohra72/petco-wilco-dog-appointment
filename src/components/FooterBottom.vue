@@ -1,5 +1,5 @@
 <template>
-<footer class="w-full">
+<footer class="w-full !mt-2">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <!--Grid-->
             <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-3 gap-y-8 md:gap-8 py-10 max-w-sm mx-auto sm:max-w-3xl lg:max-w-full">
@@ -22,9 +22,8 @@
                 <div class="lg:mx-auto text-left ">
                     <h4 class="text-lg text-gray-900 font-medium mb-7">Products</h4>
                     <ul class="text-sm  transition-all duration-500">
-                        <li class="mb-6"><a href="javascript:;"  class="text-gray-600 hover:text-gray-900">Figma UI System</a></li>
-                        <li class="mb-6"><a href="javascript:;"  class=" text-gray-600 hover:text-gray-900">Icons Assets</a></li>
-                        <li><a href="javascript:;"  class=" text-gray-600 hover:text-gray-900">Responsive Blocks</a></li>
+                        <li class="mb-6"><a href="javascript:;"  class="text-gray-600 hover:text-gray-900">Pet Services</a></li>
+                        <li class="mb-6"><a href="javascript:;"  class=" text-gray-600 hover:text-gray-900">Pet Essentials</a></li>
                     </ul>
                 </div>
                 <!--End Col-->
@@ -49,7 +48,7 @@
             <!--Grid-->
             <div class="py-7 border-t border-gray-200">
                 <div class="flex items-center justify-center flex-col lg:justify-between lg:flex-row">
-                    <span class="text-sm text-gray-500 ">©<a href="https://pagedone.io/">pagedone</a> 2024, All rights reserved.</span>
+                    <span class="text-sm text-gray-500 ">©<a href="https://pagedone.io/">Wilco</a> 2024, All rights reserved.</span>
                     <div class="flex mt-4 space-x-4 sm:justify-center lg:mt-0 ">
                         <a href="javascript:;"  class="w-8 h-8 rounded-full transition-all duration-500 flex justify-center items-center bg-[#33CCFF] hover:bg-gray-900">
                           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
