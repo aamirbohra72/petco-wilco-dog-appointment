@@ -1,4 +1,5 @@
 <template>
+  <HeaderTop/>
   <div class="min-h-screen bg-gray-50 flex items-center justify-center px-4">
     <div class="max-w-md w-full bg-white p-8 rounded-lg shadow-lg text-center">
       <!-- Checkmark Icon -->
@@ -28,12 +29,16 @@
 
       <div class="space-y-2 text-gray-700 text-left mb-6">
         <div class="flex">
+          <span class="w-36 font-semibold">Confirmation No:</span>
+          <span>1234567890</span>
+        </div>
+        <div class="flex">
           <span class="w-36 font-semibold">Store Address:</span>
           <span>Wilco Farm Store - Corvallis</span>
         </div>
         <div class="flex">
           <span class="w-36 font-semibold">License Id:</span>
-          <span>1234567890</span>
+          <span>1314151617</span>
         </div>
         <div class="flex">
           <span class="w-36 font-semibold">Timings:</span>
@@ -50,10 +55,17 @@
       </div>
     </div>
   </div>
+  <FooterBottom/>
 </template>
 
-<script>
-export default {
-  name: "ThankYouPage",
-};
+<script setup>
+// export default {
+
+//   name: "ThankYouPage",
+
+// };
+import HeaderTop from '@/components/HeaderTop.vue';
+import FooterBottom from '@/components/FooterBottom.vue';
+
+
 </script>

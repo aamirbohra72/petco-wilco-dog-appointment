@@ -146,8 +146,8 @@
               Scented spritz
             </li>
           </ul>
-
-          <button class="book-button">BOOK APPOINTMENT</button>
+           <a href="/appointment" >
+          <button class="book-button">BOOK APPOINTMENT</button></a>
           <p class="pricing-note">Pricing varies by store/location and breed type.</p>
         </div>
 
