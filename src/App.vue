@@ -1,15 +1,18 @@
 <!-- src/App.vue -->
 <script setup>
 import { defineComponent } from 'vue';
+import HeaderTop from './components/HeaderTop.vue';
+import FooterBottom from './components/FooterBottom.vue';
 </script>
 
 <template>
   <div id="app">
-    <header>
-      <!-- You can add a navigation menu here if needed -->
-    </header>
+    <HeaderTop />
 
     <!-- This is where the routed components will be injected based on the current route -->
-    <router-view></router-view>
+    <div class="px-8">
+      <router-view></router-view>
+    </div>
+    <FooterBottom />
   </div>
 </template>

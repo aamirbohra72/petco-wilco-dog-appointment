@@ -1,5 +1,4 @@
 <template>
-  <HeaderTop/>
   <div class="min-h-screen bg-gray-50 flex items-center justify-center px-4">
     <div class="max-w-md w-full bg-white p-8 rounded-lg shadow-lg text-center">
       <!-- Checkmark Icon -->
@@ -55,7 +54,6 @@
       </div>
     </div>
   </div>
-  <FooterBottom/>
 </template>
 
 <script setup>
@@ -64,8 +62,4 @@
 //   name: "ThankYouPage",
 
 // };
-import HeaderTop from '@/components/HeaderTop.vue';
-import FooterBottom from '@/components/FooterBottom.vue';
-
-
 </script>

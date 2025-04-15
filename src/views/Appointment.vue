@@ -1,5 +1,4 @@
 <template>
-  <HeaderTop />
   <div class="my-10 bg-gray-50 px-4 sm:px-6 lg:px-8">
     <div
       class="max-w-3xl mx-auto bg-white rounded-lg shadow-md overflow-hidden"
@@ -493,13 +492,10 @@
       </div>
     </div>
   </div>
-  <FooterBottom />
 </template>
 
 <script setup>
 import { ref, reactive } from "vue";
-import HeaderTop from "../components/HeaderTop.vue";
-import FooterBottom from "@/components/FooterBottom.vue";
 
 // Form data
 const formData = reactive({

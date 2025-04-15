@@ -3,7 +3,7 @@ import { SfButton } from '@storefront-ui/vue';
 </script>
 
 <template>
-  <header class="header w-full z-10">
+  <header class="header w-full z-10 !mb-3">
     <div class="container">
       <div class="header-content">
         <div class="search-bar">
@@ -60,7 +60,7 @@ import { SfButton } from '@storefront-ui/vue';
 </template>
 
 <script>
-export default {
+  export default {
   name: 'HeaderTop'
 };
 </script>
