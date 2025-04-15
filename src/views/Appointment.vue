@@ -1,6 +1,14 @@
 <template>
   <HeaderTop />
-  <div class="my-10 bg-gray-50 px-4 sm:px-6 lg:px-8">
+  <!-- <div class="min-h-screen "> -->
+  <!-- Appointment Form Card -->
+
+  <div
+    class="bg-gray-50 px-4 sm:px-6 lg:px-8 min-h-screen bg-cover bg-center bg-no-repeat p-6"
+    style="background-image: url('src/assets/paw-bg.png')"
+  >
+    <!-- <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 via-purple-100 to-pink-200 p-4"> -->
+
     <div
       class="max-w-3xl mx-auto bg-white rounded-lg shadow-md overflow-hidden"
     >
@@ -238,10 +246,10 @@
 
           <div class="space-y-6">
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2 "
-                >Select Date : April 2025 </label
-              >
-              
+              <label class="block text-sm font-medium text-gray-700 mb-2"
+                >Select Date : April 2025
+              </label>
+
               <div
                 class="bg-white border border-gray-300 rounded-lg shadow-sm p-4"
               >
@@ -493,6 +501,7 @@
       </div>
     </div>
   </div>
+  <!-- </div> -->
   <FooterBottom />
 </template>
 
