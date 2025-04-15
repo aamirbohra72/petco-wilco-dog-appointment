@@ -159,7 +159,7 @@
             <div>
               <h3 class="text-lg font-medium mb-3">Available Locations</h3>
 
-              <div class="relative mt-1 mb-4">
+              <div class="relative mt-1 mb-6">
                 <label
                   for="zipcode"
                   class="block text-sm font-medium text-gray-700"
@@ -199,22 +199,21 @@
                 </p>
               </div>
 
-              <div class="space-y-3 grid grid-cols-2 gap-4">
+              <div class="grid grid-cols-2 gap-4">
                 <div
                   v-for="(location, index) in availableLocations"
                   :key="index"
                   class="border rounded-lg p-4 cursor-pointer"
                   :class="{
-                    'border-primary bg-primary/5':
+                    'bg-primary text-white ':
                       formData.selectedLocation === index,
-                    'border-gray-200 hover:border-gray-300':
-                      formData.selectedLocation !== index,
+                    'hover:bg-gray-100': formData.selectedLocation !== index,
                   }"
                   @click="formData.selectedLocation = index"
                 >
                   <h4 class="font-medium">{{ location.name }}</h4>
-                  <p class="text-sm text-gray-600">{{ location.address }}</p>
-                  <p class="text-sm text-gray-600">{{ location.phone }}</p>
+                  <p class="text-sm text-gray-500">{{ location.address }}</p>
+                  <p class="text-sm text-gray-500">{{ location.phone }}</p>
                 </div>
               </div>
               <p
@@ -228,14 +227,21 @@
         </div>
 
         <!-- Step 3: Time Slot Selection -->
+
         <div v-if="currentStep === 3">
           <h2 class="text-xl font-semibold mb-6">Selecting time slot</h2>
+          <!-- Calendar Header with Month & Year -->
+          <!-- Static Month and Year Header -->
+          <!-- <div class="flex justify-between items-center mb-4">
+            <h3 class="text-lg font-semibold text-gray-700">April 2025</h3>
+          </div> -->
 
           <div class="space-y-6">
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2"
-                >Select Date <span class="text-red-500">*</span></label
+              <label class="block text-sm font-medium text-gray-700 mb-2 "
+                >Select Date : April 2025 </label
               >
+              
               <div
                 class="bg-white border border-gray-300 rounded-lg shadow-sm p-4"
               >
@@ -308,72 +314,98 @@
         <div v-if="currentStep === 4">
           <h2 class="text-xl font-semibold mb-6">Appointment Review</h2>
 
-          <div class="bg-white rounded-2xl shadow-md p-6 mb-8 border border-gray-200">
-  <h3 class="text-xl font-semibold text-[#003b5c] mb-6">Summary</h3>
+          <div
+            class="bg-white rounded-2xl shadow-md p-6 mb-8 border border-gray-200"
+          >
+            <h3 class="text-xl font-semibold text-[#003b5c] mb-6">Summary</h3>
 
-  <div class="space-y-6 text-[15px]">
-    <!-- Pet Information -->
-    <div>
-      <h4 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-2">
-        Pet Information
-      </h4>
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-gray-700">
-        <p><span class="font-medium">Name:</span> {{ formData.petName }}</p>
-        <p><span class="font-medium">Breed:</span> {{ formData.petBreed }}</p>
-        <p><span class="font-medium">Species:</span> {{ formData.petSpecies }}</p>
-        <p><span class="font-medium">Date of Birth:</span> {{ formData.dob }}</p>
-        <p><span class="font-medium">Weight:</span> {{ formData.petWeight }} kg</p>
-      </div>
-    </div>
+            <div class="space-y-6 text-[15px]">
+              <!-- Pet Information -->
+              <div>
+                <h4
+                  class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-2"
+                >
+                  Pet Information
+                </h4>
+                <div
+                  class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-gray-700"
+                >
+                  <p>
+                    <span class="font-medium">Name:</span>
+                    {{ formData.petName }}
+                  </p>
+                  <p>
+                    <span class="font-medium">Breed:</span>
+                    {{ formData.petBreed }}
+                  </p>
+                  <p>
+                    <span class="font-medium">Species:</span>
+                    {{ formData.petSpecies }}
+                  </p>
+                  <p>
+                    <span class="font-medium">Date of Birth:</span>
+                    {{ formData.dob }}
+                  </p>
+                  <p>
+                    <span class="font-medium">Weight:</span>
+                    {{ formData.petWeight }} kg
+                  </p>
+                </div>
+              </div>
 
-    <!-- Appointment Details -->
-    <div>
-      <h4 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-2">
-        Appointment Details
-      </h4>
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-gray-700">
-        <p>
-          <span class="font-medium">Date:</span>
-          {{ formatDate(formData.appointmentDate) }}
-        </p>
-        <p>
-          <span class="font-medium">Time:</span>
-          {{
-            formData.selectedTimeSlot !== null
-              ? availableTimeSlots[formData.selectedTimeSlot]
-              : ""
-          }}
-        </p>
-        <p>
-          <span class="font-medium">Location:</span>
-          {{ availableLocations[formData.selectedLocation]?.name }}
-        </p>
-        <p>
-          <span class="font-medium">Address:</span>
-          {{ availableLocations[formData.selectedLocation]?.address }}
-        </p>
-        <p>
-          <span class="font-medium">Zipcode:</span>
-          {{ formData.zipcode }}
-        </p>
-      </div>
-    </div>
+              <!-- Appointment Details -->
+              <div>
+                <h4
+                  class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-2"
+                >
+                  Appointment Details
+                </h4>
+                <div
+                  class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-gray-700"
+                >
+                  <p>
+                    <span class="font-medium">Date:</span>
+                    {{ formatDate(formData.appointmentDate) }}
+                  </p>
+                  <p>
+                    <span class="font-medium">Time:</span>
+                    {{
+                      formData.selectedTimeSlot !== null
+                        ? availableTimeSlots[formData.selectedTimeSlot]
+                        : ""
+                    }}
+                  </p>
+                  <p>
+                    <span class="font-medium">Location:</span>
+                    {{ availableLocations[formData.selectedLocation]?.name }}
+                  </p>
+                  <p>
+                    <span class="font-medium">Address:</span>
+                    {{ availableLocations[formData.selectedLocation]?.address }}
+                  </p>
+                  <p>
+                    <span class="font-medium">Zipcode:</span>
+                    {{ formData.zipcode }}
+                  </p>
+                </div>
+              </div>
 
-    <!-- Service Details -->
-    <div>
-      <h4 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-2">
-        Service Details
-      </h4>
-      <div class="text-gray-700">
-        <p>
-          <span class="font-medium">Service:</span> Standard Grooming
-        </p>
-        <!-- <p><span class="font-medium">Price:</span> $65.00</p> -->
-      </div>
-    </div>
-  </div>
-</div>
-
+              <!-- Service Details -->
+              <div>
+                <h4
+                  class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-2"
+                >
+                  Service Details
+                </h4>
+                <div class="text-gray-700">
+                  <p>
+                    <span class="font-medium">Service:</span> Standard Grooming
+                  </p>
+                  <!-- <p><span class="font-medium">Price:</span> $65.00</p> -->
+                </div>
+              </div>
+            </div>
+          </div>
 
           <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6">
             <div class="flex">
@@ -447,7 +479,7 @@
             </button>
 
             <!-- Step 4: Confirm Appointment button -->
-          
+
             <button
               v-else
               @click="submitForm"
@@ -553,6 +585,7 @@ const availableLocations = [
   // }
 ];
 
+// ------------------------------------------------------------------------------
 // Mock data for available time slots
 const availableTimeSlots = [
   "9:00 AM",
@@ -697,16 +730,15 @@ const prevStep = () => {
 //   this.$router.push('/confirm');
 //   // Here you would typically make an API call to save the appointment
 // };
-import { useRouter } from 'vue-router'
+import { useRouter } from "vue-router";
 
-const router = useRouter()
+const router = useRouter();
 
 function submitForm() {
   // Your form submission logic here
   // After successful submission:
-  router.push('/confirm')
+  router.push("/confirm");
 }
-
 </script>
 
 <style>
