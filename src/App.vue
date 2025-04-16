@@ -12,6 +12,8 @@ import FooterBottom from './components/FooterBottom.vue';
     <!-- This is where the routed components will be injected based on the current route -->
     <div class="px-8">
       <router-view></router-view>
+      <!-- <router-view :key="$route.fullPath" /> -->
+
     </div>
     <FooterBottom />
   </div>
