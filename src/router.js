@@ -10,7 +10,7 @@ const routes = [
   { path: '/', component: WilcoPetGrooming },
   { path: '/service/:productId', name: 'service', component: WilcoService},
   { path: '/appointment', name: 'appointment', component: Appointment },
-  { path: '/confirm', component: Confirm}
+  { path: '/confirm/:confirmationId', component: Confirm}
 ];
 
 const router = createRouter({

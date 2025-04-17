@@ -604,7 +604,7 @@ const submitForm = async () => {
     withCredentials: true
   });
   console.log("booking appointment ---", book_appointment);
-  router.push("/confirm");
+  router.push(`/confirm/${book_appointment.data.confirmation_number}`);
 }
 </script>
 
