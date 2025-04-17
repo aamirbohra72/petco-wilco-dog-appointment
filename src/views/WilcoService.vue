@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { ref, onMounted, toRefs } from 'vue';
+import { useRouter } from 'vue-router'
 import medusa from '@/lib/medusa';
 import { useRoute } from 'vue-router';
-
 import {
   SfScrollable,
   SfButton,
@@ -19,6 +19,7 @@ import { watch, type ComponentPublicInstance } from 'vue';
 import { clamp } from '@storefront-ui/shared';
 import { useCounter } from '@vueuse/core';
 
+const router = useRouter();
 // import image1 from '@/assets/Deshade-1.jpg';
 // import image2 from '@/assets/Deshade-2.webp';
 // import image3 from '@/assets/Deshade-3.jpg';
@@ -38,6 +39,7 @@ const firstThumbVisible = ref(false);
 const lastThumbVisible = ref(false);
 const activeIndex = ref(0);
 const images = ref([]);
+const showError = ref(false);
 
 watch(
   thumbsRef,
@@ -202,10 +204,42 @@ const formatPrice = (price:any) => {
   return `$${parseFloat(price).toFixed(2)}`;
 };
 
+const goToAppointment = () => {
+  if (!selectedVariant.value?.id) {
+    showError.value = true;
+    setTimeout(() => {
+      showError.value = false;
+    }, 2000);
+    return; // Stop execution here
+  }
+
+  router.push({
+    name: 'appointment',
+    query: {
+      productId: product.value?.id,
+      variantId: selectedVariant.value.id
+    }
+  })
+};
+
 </script>
 
 <template>
-  
+  <!-- Alert -->
+  <div
+    v-if="showError"
+    class="fixed top-0 my-2 left-1/2 transform -translate-x-1/2 z-50"
+  >
+    <div
+      role="alert"
+      class="flex items-center max-w-[600px] shadow-md bg-red-100 pr-2 pl-4 ring-1 ring-red-300 text-red-800 typography-text-sm md:typography-text-base py-1 rounded-md"
+    >
+      <p class="py-2 mr-2 font-semibold">Please select the pet size first!</p>
+    </div>
+  </div>
+
+
+  <!-- Service Component -->
   <div class="grid px-8 grid-cols-2 gap-4">
     <div class="col-span-1">
       <div class="relative flex w-full max-h-[600px] aspect-[3/4]">
@@ -393,11 +427,11 @@ const formatPrice = (price:any) => {
           </ul>
 
           <!-- Book Appointment -->
-          <router-link :to="{ name: 'appointment', params: { productId: product.id } }">
-          <SfButton class="!bg-[#003B5C] !p-4 mt-10">
+          <!-- <router-link :to="{ name: 'appointment', query: { productId: product.id, variantId: selectedVariant?.id } }"> -->
+          <button @click="goToAppointment" class="!bg-[#003B5C] !p-4 mt-10 text-neutral-50">
             <p class="font-semibold">Book Appointment</p>
-          </SfButton>
-        </router-link>
+          </button>
+        <!-- </router-link> -->
         </div>
       </section>
     </div>

@@ -345,17 +345,26 @@
 </template>
 
 <script setup>
-import { ref, reactive } from "vue";
+import { ref, reactive, onMounted } from "vue";
 import axios from "axios";
 import VueCal from 'vue-cal';
 import 'vue-cal/dist/vuecal.css';
+import { useRoute } from 'vue-router';
+const route = useRoute();
 
 const available_locations = ref([]);
 const available_slots = ref([])
 
+onMounted(() => {
+  formData.product_id = route.query.productId;
+  formData.variant_id = route.query.variantId;
+});
+
 // Form data
 const formData = reactive({
   // Step 1: Pet Information
+  product_id: "",
+  variant_id: "",
   location_id: "",
   pet_id: "",
   petName: "",
