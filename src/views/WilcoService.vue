@@ -232,7 +232,7 @@ const goToAppointment = () => {
   >
     <div
       role="alert"
-      class="flex items-center max-w-[600px] shadow-md bg-red-100 pr-2 pl-4 ring-1 ring-red-300 text-red-800 typography-text-sm md:typography-text-base py-1 rounded-md"
+      class="flex items-center max-w-[600px] shadow-md bg-[#003b5c] pr-2 pl-4 ring-1 ring-[#003b5c] text-neutral-50 typography-text-sm md:typography-text-base py-1 rounded-md"
     >
       <p class="py-2 mr-2 font-semibold">Please select the pet size first!</p>
     </div>
