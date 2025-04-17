@@ -143,7 +143,7 @@
                     'bg-primary text-white': formData.selectedLocation === index && formData.location_id !== '',
                     'hover:bg-gray-100': !(formData.selectedLocation === index && formData.location_id !== ''),
                   }"
-                  @click="formData.selectedLocation = index; formData.location_id = location.id;"
+                  @click="formData.selectedLocation = index; formData.location_id = location.id; formData.location_address = location.address[0].address"
                 >
                   <h4 class="font-medium">{{ location.address[0].address }}</h4>
                   <p class="text-sm text-gray-500">{{ location.address[0].zip_code }}</p>
@@ -186,7 +186,7 @@
                       formData.selectedTimeSlot === index,
                     'bg-gray-100 text-gray-900 hover:bg-gray-200':
                       formData.selectedTimeSlot !== index,
-                  }" @click="formData.selectedTimeSlot = index">
+                  }" @click="formData.selectedTimeSlot = index; formData.time_slot_id = slot.id">
                   {{ slot.start_time }} - {{ slot.end_time }}
                 </button>
               </div>
@@ -248,17 +248,17 @@
                     <span class="font-medium">Time:</span>
                     {{
                       formData.selectedTimeSlot !== null
-                        ? availableTimeSlots[formData.selectedTimeSlot]
+                        ? available_slots[formData.selectedTimeSlot].start_time + "-" + available_slots[formData.selectedTimeSlot].end_time
                         : ""
                     }}
                   </p>
                   <p>
                     <span class="font-medium">Location:</span>
-                    {{ availableLocations[formData.selectedLocation]?.name }}
+                    {{ available_locations[formData.selectedLocation]?.address[0].address }}
                   </p>
                   <p>
                     <span class="font-medium">Address:</span>
-                    {{ availableLocations[formData.selectedLocation]?.address }}
+                    {{ available_locations[formData.selectedLocation]?.address[0].address }}
                   </p>
                   <p>
                     <span class="font-medium">Zipcode:</span>
@@ -377,10 +377,12 @@ const formData = reactive({
   // Step 2: Location Selection
   selectedLocation: 0,
   zipcode: "",
+  location_address: "",
 
   // Step 3: Time Slot Selection
   appointmentDate: "",
   selectedTimeSlot: null,
+  time_slot_id: "",
 
   // Owner Information (for review step)
   ownerName: "John Doe", // Placeholder for review
@@ -476,7 +478,7 @@ const validateStep1 = async () => {
   });
   formData.pet_id = res.data.pet.id
 
-  console.log("after response----", formData)
+  // console.log("after response----", formData)
 
   return isValid;
 };
@@ -498,7 +500,7 @@ const validateStep2 = () => {
     isValid = false;
   }
 
-  console.log("on the step 2 ----->", formData);
+  // console.log("on the step 2 ----->", formData);
 
   return isValid;
 };
@@ -549,7 +551,7 @@ const findLocations = async () => {
       withCredentials: true // 👈 needed if server expects cookies
   });
   available_locations.value = locations.data.location;
-  console.log("available loacations are----++++", locations);
+  // console.log("available loacations are----++++", locations);
 }
 
 // Go back to previous step
@@ -570,27 +572,39 @@ const onDateSelect = async (event) => {
       },
       withCredentials: true // 👈 needed if server expects cookies
   });
-  console.log("form data is----", available_time_slots);
+  // console.log("form data is----", available_time_slots);
 
   available_slots.value = available_time_slots.data.appointment[0].time_slots
 }
 
-// Submit form
-// const submitForm = () => {
-//   // alert(
-//   //   "Appointment booked successfully! In a real application, this would submit to an API."
-//   // );
-//   this.$router.push('/confirm');
-//   // Here you would typically make an API call to save the appointment
-// };
 import { useRouter } from "vue-router";
 
 const router = useRouter();
 
-function submitForm() {
+const submitForm = async () => {
   // Your form submission logic here
   // After successful submission:
-  router.push("/confirm");
+  const body = {
+    location_id: formData.location_id,
+    product_id: formData.product_id,
+    variant_id : formData.variant_id,
+    customer_id: "cus_01JRAZE75HM8AGCSK8YW2A1B4V",
+    pet_id: formData.pet_id,
+    time_slot_id: formData.time_slot_id,
+    date: formData.appointmentDate,
+    location_address: {
+        address: formData.location_address,
+        zip_code: formData.zipcode
+    }
+  }
+  const book_appointment = await axios.post('http://localhost:9000/store/appointment', body, {
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    withCredentials: true
+  });
+  console.log("booking appointment ---", book_appointment);
+  router.push(`/confirm/${book_appointment.data.confirmation_number}`);
 }
 </script>
 
