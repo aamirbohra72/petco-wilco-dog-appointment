@@ -1,5 +1,5 @@
 // medusa-config.js
-module.exports = {
+export default {
   projectConfig: {
     // ... other configurations
     store_cors: "http://localhost:3000",

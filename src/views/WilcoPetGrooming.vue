@@ -36,11 +36,11 @@ export default {
             Call to book an appointment or schedule online Choose a wilco location near you and linked it to in store
             Wilco rewards
           </p>
-          <div class="!px-8">
+          <!-- <div class="!px-8">
             <button class="border b-2 !p-4 rounded-full bg-[#003B5C]">
               <p class="text-lg text-white font-semibold">Book Now</p>
             </button>
-          </div>
+          </div> -->
         </div>
 
         <!-- Right image -->
@@ -56,7 +56,7 @@ export default {
           <h2 class="text-center text-neutral-50 dark:text-neutral-50 text-2xl font semibold">Want to book a grooming appointment online?</h2>
           <h2 class="text-center text-neutral-50 dark:text-neutral-50">Pair your Farmstore.com account to your Wilco Family Rewards number.</h2>
           <a href="#" class="text-neutral-50 underline-offset-2 text-center"></a>
-          <SfLink href="#" variant="secondary" class="!text-neutral-50 !flex !justify-center">Click here to learn more!</SfLink>
+          <!-- <SfLink href="#" variant="secondary" class="!text-neutral-50 !flex !justify-center">Click here to learn more!</SfLink> -->
         </div>
     </section>
 
