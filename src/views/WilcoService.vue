@@ -191,11 +191,11 @@ const getDogImageForSize = (size:any) => {
 // Helper function to get weight range based on size
 const getWeightRange = (size) => {
   const ranges = {
-    'Toy Pet': '1-8 kg',
-    'Small Pet': '10-15 kg',
-    'Medium Pet': '18-30 kg',
-    'Large Pet': '35-55 kg',
-    'Giant Pet': '60-80 kg',
+    'Toy Pet': '3-12 lbs',
+    'Small Pet': '12-25 lbs',
+    'Medium Pet': '25-50 lbs',
+    'Large Pet': '50-100 lbs',
+    'Giant Pet': '100 lbs',
   };
   
   return ranges[size] || '';
@@ -375,7 +375,7 @@ const goToAppointment = () => {
     <p>
       Price:
       <span v-if="selectedVariant.prices && selectedVariant.prices.length > 0">
-        ${{ (selectedVariant.prices[0].amount / 100).toFixed(2) }}
+        ${{ selectedVariant.prices[0].amount }}
       </span>
       <span v-else>
         Not available

@@ -120,7 +120,7 @@ onMounted(async () => {
             </div>
             <div class="flex">
               <span class="text-gray-500 font-semibold">Weight:</span>
-              <span class="font-medium mx-2">{{ confirmation_data.pet?.weight }}</span>
+              <span class="font-medium mx-2">{{ confirmation_data.pet?.weight }} lbs</span>
             </div>
           </div>
         </div>

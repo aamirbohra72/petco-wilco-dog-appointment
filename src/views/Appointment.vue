@@ -102,7 +102,7 @@
             <!-- Pet Weight -->
             <div>
               <label for="petWeight" class="block text-sm font-medium text-gray-700">
-                Pet Weight (kg) <span class="text-red-500">*</span>
+                Pet Weight (lbs) <span class="text-red-500">*</span>
               </label>
               <input id="petWeight" v-model="formData.petWeight" type="number" step="0.1"
                 class="mt-1 h-8 pl-4 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
@@ -125,10 +125,6 @@
 
         <!-- Step 2: Date & Location Selection -->
         <div v-if="currentStep === 2">
-          <h2 class="text-xl font-semibold mb-6">
-            Choose a location for {{ formData.petName }} grooming
-          </h2>
-
           <div class="space-y-6">
             <div>
               <h3 class="text-lg font-medium mb-3">Available Locations</h3>
@@ -272,7 +268,7 @@
                       <div class="space-y-2">
                         <dl class="flex items-center justify-between gap-4">
                           <dt class="text-base font-semibold text-gray-500 dark:text-gray-400">Original price</dt>
-                          <dd class="text-base font-medium text-gray-900 dark:text-white">${{formData.service_price.prices[0].amount/100}}</dd>
+                          <dd class="text-base font-medium text-gray-900 dark:text-white">${{formData.service_price.prices[0].amount}}</dd>
                         </dl>
 
                         <dl class="flex items-center justify-between gap-4">
@@ -293,7 +289,7 @@
 
                       <dl class="flex items-center justify-between gap-4 border-t border-gray-200 pt-2 dark:border-gray-700">
                         <dt class="text-base font-bold text-gray-900 dark:text-white">Total</dt>
-                        <dd class="text-base font-bold text-gray-900 dark:text-white">${{formData.service_price.prices[0].amount/100}}</dd>
+                        <dd class="text-base font-bold text-gray-900 dark:text-white">${{formData.service_price.prices[0].amount}}</dd>
                       </dl>
                     </div>
 
@@ -344,7 +340,7 @@
                   </p>
                   <p>
                     <span class="font-medium">Weight:</span>
-                    {{ formData.petWeight }} kg
+                    {{ formData.petWeight }} lbs
                   </p>
                 </div>
               </div>
@@ -429,7 +425,7 @@
             <!-- Step 4: Confirm Appointment button -->
             <button v-else-if="currentStep === 4" @click="validateAndProceed" type="button"
               class="inline-flex items-center px-6 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-[#003B5C] hover:bg-[#002f4a] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#003B5C]">
-              Pay Now
+              Review Appointment
             </button>
 
             <!-- Step 5: Confirm Appointment button -->
