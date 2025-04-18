@@ -1,9 +1,9 @@
 <template>
-  <div class="flex !px-8 !my-4 flex-wrap gap-4 lg:gap-6 lg:flex-nowrap">
+  <div class="flex gap-2 grid grid-cols-3 !px-8 !my-4">
     <div
       v-for="(product, index) in product_data"
       :key="`${product.title}-${index}`"
-      class="flex cursor-pointer flex-col min-w-[325px] max-w-[375px] lg:w-[496px] relative border border-neutral-200 rounded-md hover:shadow-xl"
+      class="flex col-span-1 cursor-pointer flex-col min-w-[325px] max-w-[375px] lg:w-[496px] relative border border-neutral-200 rounded-md hover:shadow-xl"
     >
       <router-link :to="{ name: 'service', params: { productId: product.id } }">
         <img :src="product.thumbnail" :alt="product.title" class="object-cover h-auto rounded-t-md aspect-video" />
@@ -29,7 +29,7 @@
       onMounted(async () => {
         try {
           const { products } = await medusa.products.list({
-            type_id: ["pt-uttr667ddwawdw"],
+            type_id: ["grooming-service"],
           });
           console.log("Filtered products: ", products);
           product_data.value = products;

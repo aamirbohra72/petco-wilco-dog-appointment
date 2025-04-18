@@ -1,18 +1,37 @@
 <template>
   <div class="bg-gray-50 bg-cover bg-center" style="background-image: url('src/assets/paw-bg.jpg')">
-
-    <div class="max-w-3xl mx-auto bg-white rounded-lg shadow-md overflow-hidden">
+    <div v-if="errorMessage" class="fixed top-0 my-2 left-1/2 transform -translate-x-1/2 z-50">
+      <div
+        role="alert"
+        class="flex items-center max-w-[600px] shadow-md bg-red-100 pr-2 pl-4 ring-1 ring-red-300 text-red-800 typography-text-sm md:typography-text-base py-1 rounded-md"
+      >
+        <p class="py-2 mr-2 font-semibold">{{ errorMessage }}</p>
+      </div>
+    </div>
+    <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-md overflow-hidden">
       <!-- Progress Bar -->
       <div class="px-4 py-5 sm:px-6 bg-primary text-white">
-        <h3 class="text-lg leading-6 font-medium">
-          Book Your Pet's Appointment
+        <h3 v-if="currentStep === 1" class="text-lg leading-6 font-medium">
+          Book a {{ formData.service_title }} Appointment
+        </h3>
+        <h3 v-if="currentStep === 2" class="text-lg leading-6 font-medium">
+          Choose a location for {{ formData.petName }}'s {{ formData.service_title }} Appointment
+        </h3>
+        <h3 v-if="currentStep === 3" class="text-lg leading-6 font-medium">
+          Pick a time for {{ formData.petName }}'s at  {{ spliLocation(formData.location_address) }}
+        </h3>
+        <h3 v-if="currentStep === 4" class="text-lg leading-6 font-medium">
+          Pay for {{ formData.petName }}'s {{ formData.service_title }}
+        </h3>
+        <h3 v-if="currentStep === 5" class="text-lg leading-6 font-medium">
+          Review and confirm your appointment
         </h3>
         <div class="mt-3 flex items-center">
           <div class="flex-1 bg-primary-foreground/30 rounded-full h-2.5">
             <div class="bg-white h-2.5 rounded-full transition-all duration-300"
-              :style="{ width: `${(currentStep / 4) * 100}%` }"></div>
+              :style="{ width: `${(currentStep / 5) * 100}%` }"></div>
           </div>
-          <span class="ml-4 text-sm flex-shrink-0">Step {{ currentStep }} of 4</span>
+          <span class="ml-4 text-sm flex-shrink-0">Step {{ currentStep }} of 5</span>
         </div>
       </div>
 
@@ -158,8 +177,6 @@
 
         <!-- Step 3: Time Slot Selection -->
         <div v-if="currentStep === 3">
-          <h2 class="text-xl font-semibold mb-6">Pick a time for {{formData.petName}} at Location</h2>
-
           <div class="space-y-6">
             <div>
               <vue-cal
@@ -197,8 +214,106 @@
           </div>
         </div>
 
-        <!-- Step 4: Appointment Review -->
+        <!-- Step 4: Payment -->
         <div v-if="currentStep === 4">
+          <section class="bg-white antialiased dark:bg-gray-900">
+            <div class="mx-auto">
+              <div class="mx-auto max-w-5xl">
+                <h2 class="text-xl font-semibold text-[#003B5C] dark:text-white">Payment</h2>
+
+                <div class="mt-6 sm:mt-8 gap-3 lg:flex lg:items-start">
+                  <form action="#" class="w-full rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 sm:p-6 lg:max-w-xl lg:p-8">
+                    <div class="mb-6 grid grid-cols-2 gap-4">
+                      <div class="col-span-2 sm:col-span-1">
+                        <label for="full_name" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> Full name (as displayed on card)* </label>
+                        <input type="text" id="full_name" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" placeholder="Bonnie Green" required />
+                      </div>
+
+                      <div class="col-span-2 sm:col-span-1">
+                        <label for="card-number-input" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> Card number* </label>
+                        <input type="text" id="card-number-input" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 pe-10 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500  dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" placeholder="xxxx-xxxx-xxxx-xxxx" pattern="^4[0-9]{12}(?:[0-9]{3})?$" required />
+                      </div>
+
+                      <div>
+                        <label for="card-expiration-input" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Card expiration* </label>
+                        <div class="relative">
+                          <div class="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3.5">
+                            <svg class="h-4 w-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                              <path
+                                fill-rule="evenodd"
+                                d="M5 5a1 1 0 0 0 1-1 1 1 0 1 1 2 0 1 1 0 0 0 1 1h1a1 1 0 0 0 1-1 1 1 0 1 1 2 0 1 1 0 0 0 1 1h1a1 1 0 0 0 1-1 1 1 0 1 1 2 0 1 1 0 0 0 1 1 2 2 0 0 1 2 2v1a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7a2 2 0 0 1 2-2ZM3 19v-7a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Zm6.01-6a1 1 0 1 0-2 0 1 1 0 0 0 2 0Zm2 0a1 1 0 1 1 2 0 1 1 0 0 1-2 0Zm6 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0Zm-10 4a1 1 0 1 1 2 0 1 1 0 0 1-2 0Zm6 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0Zm2 0a1 1 0 1 1 2 0 1 1 0 0 1-2 0Z"
+                                clip-rule="evenodd"
+                              />
+                            </svg>
+                          </div>
+                          <input datepicker datepicker-format="mm/yy" id="card-expiration-input" type="text" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 ps-9 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" placeholder="12/23" required />
+                        </div>
+                      </div>
+                      <div>
+                        <label for="cvv-input" class="mb-2 flex items-center gap-1 text-sm font-medium text-gray-900 dark:text-white">
+                          CVV*
+                          <button data-tooltip-target="cvv-desc" data-tooltip-trigger="hover" class="text-gray-400 hover:text-gray-900 dark:text-gray-500 dark:hover:text-white">
+                            <svg class="h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                              <path fill-rule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm9.408-5.5a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2h-.01ZM10 10a1 1 0 1 0 0 2h1v3h-1a1 1 0 1 0 0 2h4a1 1 0 1 0 0-2h-1v-4a1 1 0 0 0-1-1h-2Z" clip-rule="evenodd" />
+                            </svg>
+                          </button>
+                          <div id="cvv-desc" role="tooltip" class="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-sm transition-opacity duration-300 dark:bg-gray-700">
+                            The last 3 digits on back of card
+                            <div class="tooltip-arrow" data-popper-arrow></div>
+                          </div>
+                        </label>
+                        <input type="number" id="cvv-input" aria-describedby="helper-text-explanation" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" placeholder="•••" required />
+                      </div>
+                    </div>
+                  </form>
+
+                  <div class="mt-6 grow sm:mt-8 lg:mt-0">
+                    <div class="rounded-lg border border-gray-100 bg-gray-50 p-2 dark:border-gray-700 dark:bg-gray-800">
+                      <div class="space-y-2">
+                        <dl class="flex items-center justify-between gap-4">
+                          <dt class="text-base font-semibold text-gray-500 dark:text-gray-400">Original price</dt>
+                          <dd class="text-base font-medium text-gray-900 dark:text-white">${{formData.service_price.prices[0].amount/100}}</dd>
+                        </dl>
+
+                        <dl class="flex items-center justify-between gap-4">
+                          <dt class="text-base font-semibold text-gray-500 dark:text-gray-400">Savings</dt>
+                          <dd class="text-base font-medium text-green-500">-$0</dd>
+                        </dl>
+
+                        <dl class="flex items-center justify-between gap-4">
+                          <dt class="text-base font-semibold text-gray-500 dark:text-gray-400">Store Pickup</dt>
+                          <dd class="text-base font-medium text-gray-900 dark:text-white">$0</dd>
+                        </dl>
+
+                        <dl class="flex items-center justify-between gap-4">
+                          <dt class="text-base font-semibold text-gray-500 dark:text-gray-400">Tax</dt>
+                          <dd class="text-base font-medium text-gray-900 dark:text-white">$0</dd>
+                        </dl>
+                      </div>
+
+                      <dl class="flex items-center justify-between gap-4 border-t border-gray-200 pt-2 dark:border-gray-700">
+                        <dt class="text-base font-bold text-gray-900 dark:text-white">Total</dt>
+                        <dd class="text-base font-bold text-gray-900 dark:text-white">${{formData.service_price.prices[0].amount/100}}</dd>
+                      </dl>
+                    </div>
+
+                    <div class="mt-6 flex items-center justify-center gap-4">
+                      <img class="h-6 w-6 w-auto dark:hidden" src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/brand-logos/paypal.svg" alt="" />
+                      <img class="hidden h-8 w-auto dark:flex" src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/brand-logos/paypal-dark.svg" alt="" />
+                      <img class="h-6 w-6 w-auto dark:hidden" src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/brand-logos/visa.svg" alt="" />
+                      <img class="hidden h-8 w-auto dark:flex" src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/brand-logos/visa-dark.svg" alt="" />
+                      <img class="h-6 w-6 w-auto dark:hidden" src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/brand-logos/mastercard.svg" alt="" />
+                      <img class="hidden h-8 w-auto dark:flex" src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/brand-logos/mastercard-dark.svg" alt="" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- Step 5: Appointment Review -->
+        <div v-if="currentStep === 5">
           <h2 class="text-xl font-semibold mb-6">Appointment Review</h2>
 
           <div class="bg-white rounded-2xl shadow-md p-6 mb-8 border border-gray-200">
@@ -274,29 +389,10 @@
                 </h4>
                 <div class="text-gray-700">
                   <p>
-                    <span class="font-medium">Service:</span> Standard Grooming
+                    <span class="font-medium">Service:</span> {{ formData.service_title }}
                   </p>
                   <!-- <p><span class="font-medium">Price:</span> $65.00</p> -->
                 </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6">
-            <div class="flex">
-              <div class="flex-shrink-0">
-                <svg class="h-5 w-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                  fill="currentColor" aria-hidden="true">
-                  <path fill-rule="evenodd"
-                    d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
-                    clip-rule="evenodd" />
-                </svg>
-              </div>
-              <div class="ml-3">
-                <p class="text-sm text-yellow-700">
-                  This is a static form. In a real application, this would
-                  submit to an API.
-                </p>
               </div>
             </div>
           </div>
@@ -327,11 +423,16 @@
             <!-- Step 3: Appointment Review button -->
             <button v-else-if="currentStep === 3" @click="validateAndProceed" type="button"
               class="inline-flex items-center px-6 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
-              Appointment Review
+              Continue to payment
             </button>
 
             <!-- Step 4: Confirm Appointment button -->
+            <button v-else-if="currentStep === 4" @click="validateAndProceed" type="button"
+              class="inline-flex items-center px-6 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-[#003B5C] hover:bg-[#002f4a] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#003B5C]">
+              Pay Now
+            </button>
 
+            <!-- Step 5: Confirm Appointment button -->
             <button v-else @click="submitForm" type="button"
               class="inline-flex items-center px-6 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-[#003B5C] hover:bg-[#002f4a] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#003B5C]">
               Confirm Appointment
@@ -346,23 +447,41 @@
 
 <script setup>
 import { ref, reactive, onMounted } from "vue";
+import medusa from "@/lib/medusa";
 import axios from "axios";
 import VueCal from 'vue-cal';
 import 'vue-cal/dist/vuecal.css';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 const route = useRoute();
+const router = useRouter();
 
 const available_locations = ref([]);
 const available_slots = ref([])
+const errorMessage = ref("");
 
-onMounted(() => {
+const spliLocation = (str) =>{
+  console.log("inside the split function--+++", str);
+  const splited_string = str.split(",");
+  console.log("splited string is---", splited_string)
+  return splited_string[0];
+}
+
+onMounted(async () => {
   formData.product_id = route.query.productId;
   formData.variant_id = route.query.variantId;
+
+  await medusa.products.retrieve(route.query.productId).then(({ product }) => {
+    const variant_price = product.variants.find(v => v.id === route.query.variantId);
+    formData.service_title = product.title;
+    formData.service_price = variant_price;
+  });
 });
 
 // Form data
 const formData = reactive({
   // Step 1: Pet Information
+  service_title: "",
+  service_price: "",
   product_id: "",
   variant_id: "",
   location_id: "",
@@ -525,6 +644,12 @@ const validateStep3 = () => {
   return isValid;
 };
 
+// Validate step 4 (Payment selection)
+const validatePayment = () =>{
+  let isValid = true;
+  return isValid;
+}
+
 // Validate current step and proceed to next step if valid
 const validateAndProceed = () => {
   let isValid = false;
@@ -535,6 +660,8 @@ const validateAndProceed = () => {
     isValid = validateStep2();
   } else if (currentStep.value === 3) {
     isValid = validateStep3();
+  } else if (currentStep.value === 4) {
+    isValid = validatePayment();
   }
 
   if (isValid) {
@@ -544,14 +671,24 @@ const validateAndProceed = () => {
 
 // Function to find the location based on zip
 const findLocations = async () => {
-  const locations = await axios.get(`http://localhost:9000/store/location?zip_code=${formData.zipcode}`, {
+  try{
+    const locations = await axios.get(`http://localhost:9000/store/location?zip_code=${formData.zipcode}&&p_id=${formData.product_id}`, {
       headers: {
         'Content-Type': 'application/json'
       },
-      withCredentials: true // 👈 needed if server expects cookies
-  });
-  available_locations.value = locations.data.location;
-  // console.log("available loacations are----++++", locations);
+      withCredentials: true
+    });
+    if(locations.data.location <= 0){
+      errorMessage.value = "No store is available for this area!";
+      setTimeout(() => {
+        errorMessage.value = "";
+      }, 3000);
+    }
+    available_locations.value = locations.data.location;
+  }
+  catch(error){
+    console.log("Error occured is", error);
+  }
 }
 
 // Go back to previous step
@@ -565,21 +702,31 @@ const prevStep = () => {
 const onDateSelect = async (event) => {
   const date = backendDate(event)
   formData.appointmentDate = date
-
-  const available_time_slots = await axios.get(`http://localhost:9000/store/appointment/available?location_id=${formData.location_id}&date=${date}`, {
+  try{
+    const available_time_slots = await axios.get(`http://localhost:9000/store/appointment/available?location_id=${formData.location_id}&date=${date}`, {
       headers: {
         'Content-Type': 'application/json'
       },
       withCredentials: true // 👈 needed if server expects cookies
-  });
-  // console.log("form data is----", available_time_slots);
+    });
 
-  available_slots.value = available_time_slots.data.appointment[0].time_slots
-}
-
-import { useRouter } from "vue-router";
-
-const router = useRouter();
+    if(available_time_slots.data.appointment.length <= 0) {
+      errorMessage.value = "No appointments are available for this date!";
+      setTimeout(() => {
+        errorMessage.value = "";
+      }, 3000);
+    }
+    available_slots.value = available_time_slots.data.appointment[0].time_slots
+  }
+  catch(error){
+    errorMessage.value = error.response.data.message;
+    // Clear slots
+    available_slots.value = [];
+    setTimeout(() => {
+      errorMessage.value = ""
+    }, 3000);
+  }
+};
 
 const submitForm = async () => {
   // Your form submission logic here
@@ -676,7 +823,6 @@ const submitForm = async () => {
 }
 
 .custom-blue-theme .vuecal__cell--selected,
-.custom-blue-theme .vuecal__cell--today,
 .custom-blue-theme .vuecal__title-bar,
 .custom-blue-theme .vuecal__cell--has-events,
 .custom-blue-theme .vuecal__event,
@@ -691,9 +837,7 @@ const submitForm = async () => {
 
 /* When the date is selected or hovered (inside your custom theme) */
 .custom-blue-theme .vuecal__cell--selected .vuecal__cell-date,
-.custom-blue-theme .vuecal__cell--today .vuecal__cell-date,
 .custom-blue-theme .vuecal__cell:hover .vuecal__cell-date {
   color: white !important;
 }
-
 </style>

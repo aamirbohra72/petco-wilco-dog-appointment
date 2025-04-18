@@ -8,7 +8,6 @@ export default {
       onMounted(async () => {
         try {
           const res = await medusa.products.list().then(({ products }) => {
-            console.log("This is the product data in service page---", products);
             return products
           })
           // product_data.value = res.products;
