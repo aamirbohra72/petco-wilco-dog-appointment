@@ -177,10 +177,11 @@ const emit = defineEmits(['variant-selected']);
 const getDogImageForSize = (size:any) => {
   const images = {
     // 'S': '/placeholder.svg?height=200&width=200&text=Small+Dog',
-    'S': 'https://media.istockphoto.com/id/524508267/photo/mixed-breed-dog-puppy-on-white-background.jpg?s=612x612&w=0&k=20&c=jw-DfXn35IqQ2TroL_8fUDnJteW8s1dwnav7BLj0LxE=',
-    'M': 'https://media.istockphoto.com/id/1094019176/photo/adorable-schnauzer-wearing-a-red-bowtie-pants-while-standing.jpg?s=612x612&w=0&k=20&c=vFnkvYxoP1kVJYbFMyGrwjrPWUbfehbObQuFSZ6zWW0=',
-    'L': 'https://media.istockphoto.com/id/1482716810/photo/serious-dog-looking-at-camera-front-view.jpg?s=612x612&w=0&k=20&c=bsPWEjrBaPbeRY_q6RKk8deW5O2RG9cxI0uUVz56-VA=',
-    'XL': 'https://media.istockphoto.com/id/820792054/photo/portrait-of-a-red-and-white-pitbull-the-amanda-collection.jpg?s=612x612&w=0&k=20&c=9e96tYu0U8R9liCgSMZxIExrGOsly6YynvIe0V2dlmo='
+    'Toy Pet': 'https://media.istockphoto.com/id/524508267/photo/mixed-breed-dog-puppy-on-white-background.jpg?s=612x612&w=0&k=20&c=jw-DfXn35IqQ2TroL_8fUDnJteW8s1dwnav7BLj0LxE=',
+    'Small Pet': 'https://media.istockphoto.com/id/1094019176/photo/adorable-schnauzer-wearing-a-red-bowtie-pants-while-standing.jpg?s=612x612&w=0&k=20&c=vFnkvYxoP1kVJYbFMyGrwjrPWUbfehbObQuFSZ6zWW0=',
+    'Medium Pet': 'https://media.istockphoto.com/id/1482716810/photo/serious-dog-looking-at-camera-front-view.jpg?s=612x612&w=0&k=20&c=bsPWEjrBaPbeRY_q6RKk8deW5O2RG9cxI0uUVz56-VA=',
+    'Large Pet': 'https://media.istockphoto.com/id/820792054/photo/portrait-of-a-red-and-white-pitbull-the-amanda-collection.jpg?s=612x612&w=0&k=20&c=9e96tYu0U8R9liCgSMZxIExrGOsly6YynvIe0V2dlmo=',
+    "Giant Pet": 'https://media.istockphoto.com/id/155892244/photo/focused-on-being-a-great-watchdog.jpg?s=612x612&w=0&k=20&c=k6Gd-2QShAD4_SrYuqK6nIYpi-4-FIjYs9At_bYDB8o='
   };
   
   // Replace these placeholder URLs with your actual dog images for each size
@@ -190,10 +191,11 @@ const getDogImageForSize = (size:any) => {
 // Helper function to get weight range based on size
 const getWeightRange = (size) => {
   const ranges = {
-    'S': '0-15 lbs',
-    'M': '16-30 lbs',
-    'L': '31-60 lbs',
-    'XL': '61+ lbs'
+    'Toy Pet': '1-8 kg',
+    'Small Pet': '10-15 kg',
+    'Medium Pet': '18-30 kg',
+    'Large Pet': '35-55 kg',
+    'Giant Pet': '60-80 kg',
   };
   
   return ranges[size] || '';

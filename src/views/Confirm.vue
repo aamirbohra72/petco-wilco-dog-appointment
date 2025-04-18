@@ -24,8 +24,8 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="min-h-screen flex items-center justify-center px-4">
-    <div class="max-w-4xl bg-white p-8 rounded-lg shadow-lg text-center">
+  <div class="min-h-screen flex items-center justify-center px-4 bg-[url(paw-bg.jpg)]">
+    <div class="max-w-4xl bg-white p-8 rounded-lg shadow-lg text-center" >
       <div class="flex justify-center mb-6">
         <svg
           class="w-16 h-16 text-blue-800"
@@ -66,10 +66,6 @@ onMounted(async () => {
             </p>
           </div>
           <div class="flex gap-4">
-            <p class="text-gray-500 font-semibold">Location:</p>
-            <p class="font-semibold">{{ confirmation_data.location?.address?.[0]?.address }}</p>
-          </div>
-          <div class="flex gap-4">
             <p class="text-gray-500 font-semibold">Address:</p>
             <p class="font-semibold">{{ confirmation_data.location?.address?.[0]?.address }}</p>
           </div>
@@ -87,10 +83,6 @@ onMounted(async () => {
           <div class="flex gap-4">
             <p class="text-gray-500 font-semibold">Confirmation No:</p>
             <p class="font-semibold">{{ confirmationId }}</p>
-          </div>
-          <div class="flex gap-4">
-            <p class="text-gray-500 font-semibold">Store Address:</p>
-            <p class="font-semibold">{{ confirmation_data.location?.address?.[0]?.address }}</p>
           </div>
           <div class="flex gap-4">
             <p class="text-gray-500 font-semibold">License Id:</p>
