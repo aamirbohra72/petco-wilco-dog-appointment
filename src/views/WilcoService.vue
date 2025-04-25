@@ -18,8 +18,12 @@ import { unrefElement, useIntersectionObserver } from '@vueuse/core';
 import { watch, type ComponentPublicInstance } from 'vue';
 import { clamp } from '@storefront-ui/shared';
 import { useCounter } from '@vueuse/core';
+import { storeToRefs } from 'pinia'
+import { useAuthStore } from '@/stores/auth'
 
 const router = useRouter();
+const { customer } = storeToRefs(useAuthStore());
+
 // import image1 from '@/assets/Deshade-1.jpg';
 // import image2 from '@/assets/Deshade-2.webp';
 // import image3 from '@/assets/Deshade-3.jpg';
@@ -213,6 +217,14 @@ const goToAppointment = () => {
       showError.value = false;
     }, 2000);
     return; // Stop execution here
+  }
+
+
+  if(!customer.value || customer.value === null) {
+    return router.push({
+      path: '/login',
+      query: { redirect: route.fullPath }
+    });
   }
 
   router.push({

@@ -448,8 +448,11 @@ import axios from "axios";
 import VueCal from 'vue-cal';
 import 'vue-cal/dist/vuecal.css';
 import { useRoute, useRouter } from 'vue-router';
+import { storeToRefs } from 'pinia'
+import { useAuthStore } from '@/stores/auth'
 const route = useRoute();
 const router = useRouter();
+const { customer } = storeToRefs(useAuthStore());
 
 const available_locations = ref([]);
 const available_slots = ref([])
@@ -731,7 +734,7 @@ const submitForm = async () => {
     location_id: formData.location_id,
     product_id: formData.product_id,
     variant_id : formData.variant_id,
-    customer_id: "cus_01JRAZE75HM8AGCSK8YW2A1B4V",
+    customer_id: customer.value.id,
     pet_id: formData.pet_id,
     time_slot_id: formData.time_slot_id,
     date: formData.appointmentDate,
