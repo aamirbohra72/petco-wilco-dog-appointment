@@ -124,7 +124,9 @@
   import { z } from 'zod'
   import { useRouter } from 'vue-router'
   import { createCustomer } from '@/lib/request'
+  import { useAuthStore } from '@/stores/auth';
   const router = useRouter();
+  const auth = useAuthStore();
 
   const signupSchema = z.object({
     firstName: z.string().min(1, { message: 'First name is required' }),
@@ -155,10 +157,8 @@
     }
 
     try {
-      // 👉  call your API here
-      // await signupCustomer(form)
-      console.log('Valid signup data:', form )
-      await createCustomer(form);
+      const customer = await createCustomer(form);
+      auth.setCustomer(customer);
       router.push('/');
     } catch (e: any) {
       // surface server‑side validation here

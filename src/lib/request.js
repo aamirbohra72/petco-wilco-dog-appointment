@@ -56,25 +56,32 @@ export async function request({ method, url, params, data, headers, config = {} 
 //     };
 // };
 
-export async function loginCustomer(email, password){
-    await medusa.auth.authenticate({
-        email,
-        password
-    }).then(({ customer }) => {
-        return customer;
-    });
+export async function loginCustomer (email, password) {
+  const data = medusa.auth.authenticate({
+    email,
+    password
+  })
+  .then(({ customer }) => {
+    return customer;
+  });
+  return data;
 };
 
 export async function createCustomer(form_data){
-    await medusa.customers.create({
+    const data = await medusa.customers.create({
         first_name: form_data.firstName,
         last_name: form_data.lastName,
         email: form_data.email,
         password: form_data.password
     }).then(( { customer } ) => {
-        console.log("This is created customer -->", customer);
-    })
-}
+      return customer
+    });
+    return data;
+};
+
+export async function logOut(){
+  await medusa.auth.deleteSession().then(() => {});
+};
 
 
 /* 4. Named export for convenience */

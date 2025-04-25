@@ -107,10 +107,13 @@
 
 <script lang="ts" setup>
     import { ref, reactive } from 'vue';
-    import { z } from 'zod';
+    import { custom, z } from 'zod';
     import { loginCustomer } from '@/lib/request';
     import { useRouter } from 'vue-router';
+    import { useAuthStore } from '@/stores/auth';
+
     const router = useRouter();
+    const auth = useAuthStore();
 
     // Login zod schema
     const loginSchema = z.object({
@@ -146,8 +149,10 @@
         };
 
         try{
-            await loginCustomer(form.email, form.password);
-            router.push('/');
+            const customer = await loginCustomer(form.email, form.password);
+            auth.setCustomer(customer)
+            const redirectTo = router.currentRoute.value.query.redirect as string || '/';
+            router.push(redirectTo)
         }
         catch(error){
             form_errors.password = error.message ?? 'Login failed'
