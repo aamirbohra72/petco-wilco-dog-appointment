@@ -15,7 +15,5 @@ app.use(router);
 pinia.use(createPersistedState({
     storage: sessionStorage
 }));
+
 app.use(pinia).mount('#app');
-
-
-
