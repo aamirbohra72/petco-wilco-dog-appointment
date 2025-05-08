@@ -1,12 +1,19 @@
-<script setup>
+<!-- <script setup lang="ts">
 import { useRoute } from 'vue-router';
 import { onMounted, ref } from 'vue';
 import axios from "axios";
+import { Content, fetchOneEntry } from '@builder.io/sdk-vue';
+import type { BuilderContent } from '@builder.io/sdk-vue';
+const apiKey = '239780719aa94fa4915d2d2d1f26f4fb';
+const content = ref<BuilderContent | null>(null);
 
 const route = useRoute();
 const confirmationId = route.params.confirmationId;
+const resolvedPath = `/confirm/${confirmationId}`;
 
 const confirmation_data = ref(null);
+
+const model = 'page';
 
 onMounted(async () => {
   try {
@@ -17,13 +24,31 @@ onMounted(async () => {
       withCredentials: true
     });
     confirmation_data.value = confData.data.appointment[0];
+
+    content.value = await fetchOneEntry({
+      model,
+      apiKey,
+      userAttributes: {
+        urlPath: '/confirm/test',
+      },
+    });
+
+    console.log("This is confirmationdata==", confirmation_data.value);
+    console.log("content value is", content.value)
   } catch (error) {
     console.error("Failed to fetch appointment data", error);
   }
 });
+
 </script>
 
 <template>
+  <Content
+    model='page'
+    :api-key='apiKey'
+    :content="content"
+    :data="{ confirmation_number: confirmation_data?.confirmationId }"
+  />
   <div class="min-h-screen flex items-center justify-center px-4 bg-[url(paw-bg.jpg)]">
     <div class="max-w-4xl bg-white p-8 rounded-lg shadow-lg text-center" >
       <div class="flex justify-center mb-6">
@@ -50,7 +75,6 @@ onMounted(async () => {
 
       <div v-if="confirmation_data" class="space-y-1">
 
-        <!-- Appointment Details -->
         <div class="bg-gray-50 rounded-xl p-5 border border-gray-100 !my-4">
           <div class="flex items-center mb-4">
             <h4 class="text-sm font-semibold text-gray-700 uppercase tracking-wider">Appointment Details</h4>
@@ -75,7 +99,6 @@ onMounted(async () => {
           </div>
         </div>
 
-        <!-- Confirmation Details -->
         <div class="bg-gray-50 rounded-xl p-5 border border-gray-100 !my-4">
           <div class="flex items-center mb-4">
             <h4 class="text-sm font-semibold text-gray-700 uppercase tracking-wider">Confirmation Details</h4>
@@ -96,7 +119,6 @@ onMounted(async () => {
           </div>
         </div>
 
-        <!-- Pet Information -->
         <div class="bg-gray-50 rounded-xl p-5 border border-gray-100 !my-4">
           <div class="flex items-center mb-4">
             <h4 class="text-sm font-semibold text-gray-700 uppercase tracking-wider">Pet Information</h4>
@@ -125,7 +147,6 @@ onMounted(async () => {
           </div>
         </div>
 
-        <!-- Reminder -->
         <div
           v-if="confirmation_data.location?.certification?.length"
           class="bg-blue-100 p-4 rounded-lg border border-blue-800"
@@ -142,4 +163,56 @@ onMounted(async () => {
       </div>
     </div>
   </div>
+</template> -->
+
+<script setup lang="ts">
+import { useRoute } from 'vue-router';
+import { onMounted, ref } from 'vue';
+import axios from "axios";
+import { Content, fetchOneEntry, isPreviewing } from '@builder.io/sdk-vue';
+import type { BuilderContent } from '@builder.io/sdk-vue';
+
+const apiKey = '239780719aa94fa4915d2d2d1f26f4fb';
+const model = 'page';
+
+const content = ref<BuilderContent | null>(null);
+const canShowContent = ref(false);
+const confirmation_data = ref(null);
+
+const route = useRoute();
+const confirmationId = route.params.confirmationId;
+const resolvedPath = `/confirm/preview`; // Use static page from Builder
+
+onMounted(async () => {
+  try {
+    const confData = await axios.get(`http://localhost:9000/store/appointment?confirmation_number=${confirmationId}`, {
+      headers: { 'Content-Type': 'application/json' },
+      withCredentials: true
+    });
+    confirmation_data.value = confData.data.appointment[0];
+
+    content.value = await fetchOneEntry({
+      model,
+      apiKey,
+      userAttributes: {
+        urlPath: resolvedPath,
+        confirmationId
+      },
+    });
+
+    console.log("Builder content:", content.value); // debug
+
+    canShowContent.value = !!content.value || isPreviewing();
+
+  } catch (error) {
+    console.error("Failed to fetch data:", error);
+  }
+});
+</script>
+
+<template>
+  <Content v-if="canShowContent" :model="model" :api-key="apiKey" :content="content"
+    :data="{ confirmation_number: confirmationId, confirmation_data: confirmation_data }" />
+
+  <div v-else>Content not found</div>
 </template>

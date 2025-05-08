@@ -6,6 +6,7 @@ import Appointment from './views/Appointment.vue';
 import Confirm from './views/Confirm.vue';
 import Login from './views/Login.vue'
 import Signup from './views/Signup.vue';
+import Admin from './views/Admin.vue';
 
 const routes = [
   { path: '/home', component: Home },
@@ -14,7 +15,8 @@ const routes = [
   { path: '/appointment', name: 'appointment', component: Appointment },
   { path: '/confirm/:confirmationId', component: Confirm},
   { path: '/login', component: Login},
-  { path: '/signup', component: Signup }
+  { path: '/signup', component: Signup },
+  { path: '/admin', component: Admin },
 ];
 
 const router = createRouter({
